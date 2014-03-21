@@ -66,6 +66,7 @@ class Admin {
 		$this->dateTimeFields = $fields;
 	}
 
+	// Usage: \Admin::setImageFields(array('img' => 100, 'banner' => 80));
 	public function setImageFields($fields)
 	{
 		$this->imageFields = $fields;

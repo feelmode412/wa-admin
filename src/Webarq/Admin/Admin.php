@@ -1,9 +1,10 @@
 <?php namespace Webarq\Admin;
 class Admin {
 	
-	public $currencyFields = array();
-	public $dateFields = array();
-	public $dateTimeFields = array();
+	private $currencyFields = array();
+	private $dateFields = array();
+	private $dateTimeFields = array();
+	private $imageFields = array();
 
 	public function formatDate($rowValue)
 	{
@@ -32,7 +33,7 @@ class Admin {
 
 		if (in_array($fieldName, $this->currencyFields))
 		{
-			$fieldValue = Site::formatCurrency($fieldValue);
+			$fieldValue = currency_format($fieldValue);
 		}
 		elseif (in_array($fieldName, $this->dateFields))
 		{
@@ -42,8 +43,32 @@ class Admin {
 		{
 			$fieldValue = $this->formatDateTime($fieldValue);
 		}
+		elseif (in_array($fieldName, array_keys($this->imageFields)))
+		{
+			$fieldValue = \HTML::image(asset('contents/'.$row->{$fieldName}), $row->{$fieldName}, array('width' => $this->imageFields[$fieldName]));
+		}
 
 		return $fieldValue;
+	}
+
+	public function setCurrencyFields($fields)
+	{
+		$this->currencyFields = $fields;
+	}
+
+	public function setDateFields($fields)
+	{
+		$this->dateFields = $fields;
+	}
+
+	public function setDateTimeFields($fields)
+	{
+		$this->dateTimeFields = $fields;
+	}
+
+	public function setImageFields($fields)
+	{
+		$this->imageFields = $fields;
 	}
 
 }

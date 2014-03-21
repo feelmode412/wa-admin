@@ -1,9 +1,5 @@
 <?php namespace Webarq\Admin;
 class Admin {
-	
-	public $currencyFields = array();
-	public $dateFields = array();
-	public $dateTimeFields = array();
 
 	public function formatDate($rowValue)
 	{
@@ -15,7 +11,7 @@ class Admin {
 		return date('M j, Y H:i:s', strtotime($rowValue));
 	}
 	
-	public function getFieldValue($row, $fieldName)
+	public function getFieldValue($row, $fieldName, $currencyFields = array(), $dateFields = array(), $dateTimeFields = array())
 	{
 		$exploded = explode('->', $fieldName);
 		if (count($exploded) == 1)
@@ -30,15 +26,15 @@ class Admin {
 				$fieldValue = $fieldValue->{$val};
 		}
 
-		if (in_array($fieldName, $this->currencyFields))
+		if (in_array($fieldName, $currencyFields))
 		{
 			$fieldValue = Site::formatCurrency($fieldValue);
 		}
-		elseif (in_array($fieldName, $this->dateFields))
+		elseif (in_array($fieldName, $dateFields))
 		{
 			$fieldValue = $this->formatDate($fieldValue);
 		}
-		elseif (in_array($fieldName, $this->dateTimeFields))
+		elseif (in_array($fieldName, $dateTimeFields))
 		{
 			$fieldValue = $this->formatDateTime($fieldValue);
 		}

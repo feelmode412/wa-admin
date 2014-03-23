@@ -12,12 +12,21 @@
             "email": "qosdil@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:webarq/site.git"
+        }
+    ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.0.*"
+        "illuminate/support": "4.0.*",
+        "webarq/site": "dev-master"
     },
     "autoload": {
         "classmap": [
+            "src/controllers",
+            "src/models",
             "src/migrations"
         ],
         "psr-0": {

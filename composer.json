@@ -4,5 +4,25 @@
     "dist": {
         "url": "https://bitbucket.org/webarq/admin.git",
         "type": "git"
-    }
+    },
+    "description": "",
+    "authors": [
+        {
+            "name": "Qosdil A.",
+            "email": "qosdil@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Webarq\\Admin\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
 }

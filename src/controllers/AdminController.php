@@ -141,7 +141,7 @@ class AdminController extends \Controller {
 		return $this->redirect($this->section);
 	}
 
-	protected function handleAddEditPost($inputs = array())
+	protected function handleAddEditPost($inputs = array(), $customInputs = array())
 	{
 		$id = \Input::get('id');
 		$row = ($id) ? $this->model->find($id) : $this->model;
@@ -149,6 +149,11 @@ class AdminController extends \Controller {
 		foreach ($inputs as $input)
 		{
 			$row->{$input} = \Input::get($input);
+		}
+
+		foreach ($customInputs as $fieldName => $fieldValue)
+		{
+			$row->{$fieldName} = $fieldValue;
 		}
 		
 		$status = ($id)

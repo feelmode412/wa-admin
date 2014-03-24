@@ -2,6 +2,7 @@
 class AdminController extends \Controller {
 	
 	protected $activeMenu;
+	protected $breadcrumbs;
 	protected $defaultSortType = 'ASC';
 	protected $layout = 'admin::layouts.master';
 	protected $model;
@@ -54,6 +55,18 @@ class AdminController extends \Controller {
 		return $this->setting->ofCodeType('rows_per_page', 'admin_panel')->value;
 	}
 
+	protected function handleAddEditAction($viewPath)
+	{
+		// Breadcrumbs
+		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';
+		$this->layout->breadcrumbs = $this->breadcrumbs;
+		
+		$this->layout->content = \View::make($this->viewPath.'.add_edit', array(
+			'row' => (\Input::get('id')) ? $this->model->find(\Input::get('id')) : null,
+			'section' => $this->section,
+		));
+	}
+
 	protected function handleDelete($model)
 	{
 		$status = true;
@@ -99,7 +112,7 @@ class AdminController extends \Controller {
 		return $this->redirect($this->section);
 	}
 
-	protected function handleAddeditPost($inputs = array())
+	protected function handleAddEditPost($inputs = array())
 	{
 		$id = \Input::get('id');
 		$row = ($id) ? $this->model->find($id) : $this->model;

@@ -2,9 +2,7 @@
 
 class SettingController extends AdminController {
 	
-	private $breadcrumbs;
 	private $defaultSortField = 'type'; // Sorting with field 'type' as default value
-	private $view_path = 'admin::setting';
 	
 	public function __construct()
 	{
@@ -14,6 +12,7 @@ class SettingController extends AdminController {
 		$this->pageTitle = 'Settings';
 		$this->searchableFields = array('code', 'type', 'value');
 		$this->section = 'setting';
+		$this->viewPath = 'admin::setting';
 		
 		$this->breadcrumbs = array(
 			'System &amp; Utilities' => '#',
@@ -47,21 +46,14 @@ class SettingController extends AdminController {
 		return $this->handleIndexPost();
 	}
 	
-	public function getAddedit() // Add and Edit
+	public function getAddedit()
 	{
-		// Breadcrumbs
-		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';
-		$this->layout->breadcrumbs = $this->breadcrumbs;
-		
-		$this->layout->content = \View::make($this->view_path.'.add_edit', array(
-			'row' => (\Input::get('id')) ? $this->model->find(\Input::get('id')) : null,
-			'section' => $this->section,
-		));
+		return $this->handleAddEditAction($this->viewPath);
 	}
 	
 	public function postAddedit()
 	{
-		return $this->handleAddeditPost(array('code', 'type', 'value'));
+		return $this->handleAddEditPost(array('code', 'type', 'value'));
 	}
 	
 	public function getDelete()

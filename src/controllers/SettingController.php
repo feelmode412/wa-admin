@@ -6,14 +6,6 @@ class SettingController extends AdminController {
 	{
 		parent::__construct();
 		$this->activeMainMenu = 'system';
-
-		// For listing
-		$this->fieldTitles = array(
-			'code' => 'Code',
-			'type' => 'Type',
-			'value' => 'Value',
-		);
-
 		$this->model = new \Webarq\Site\Setting;
 		$this->pageTitle = 'Settings';
 		$this->section = 'setting';
@@ -27,6 +19,12 @@ class SettingController extends AdminController {
 
 	public function getIndex()
 	{
+		$this->fieldTitles = array(
+			'code' => 'Code',
+			'type' => 'Type',
+			'value' => 'Value',
+		);
+		
 		$this->defaultSortField = 'type';
 		$this->disabledActions = array('addNew', 'delete');
 		$this->searchableFields = array_keys($this->fieldTitles);
@@ -45,7 +43,7 @@ class SettingController extends AdminController {
 	
 	public function postAddedit()
 	{
-		return $this->handleAddEditPost(array_keys($this->fieldTitles));
+		return $this->handleAddEditPost(array('value'));
 	}
 	
 	public function getDelete()

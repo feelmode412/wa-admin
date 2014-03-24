@@ -104,6 +104,23 @@ class AdminController extends \Controller {
 		return $this->redirect($this->section);
 	}
 
+	protected function handleAddeditPost($inputs = array())
+	{
+		$id = \Input::get('id');
+		$row = ($id) ? $this->model->find($id) : $this->model;
+		
+		foreach ($inputs as $input)
+		{
+			$row->{$input} = \Input::get($input);
+		}
+		
+		$status = ($id)
+			? $this->handleUpdate($row)
+			: $this->handleInsert($row);
+
+		return $this->redirect($status ? $this->section : $this->section.'/addedit?id='.$id);
+	}
+
 	protected function handleBasicActions($defaultSortField)
 	{
 		// Handle searching

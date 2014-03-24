@@ -62,14 +62,7 @@ class SettingController extends AdminController {
 	
 	public function postAddedit()
 	{
-		$id = \Input::get('id');
-		$row = ($id) ? $this->model->find($id) : $this->model;
-		$row->value = \Input::get('value');
-		$status = ($id)
-			? $this->handleUpdate($row) 
-			: $this->handleInsert($row);
-
-		return $this->redirect($status ? $this->section : $this->section.'/addedit?id='.$id);
+		return $this->handleAddeditPost(array('code', 'type', 'value'));
 	}
 	
 	public function getDelete()

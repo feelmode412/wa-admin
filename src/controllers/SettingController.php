@@ -74,10 +74,7 @@ class SettingController extends AdminController {
 	
 	public function getDelete()
 	{
-		$row = $this->model->find(\Input::get('id'));
-		$this->handleDelete($row);
-		
-		return $this->redirect($this->section);
+		return $this->handleDeleteAction();
 	}
 
 }

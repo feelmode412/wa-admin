@@ -82,6 +82,14 @@ class AdminController extends \Controller {
 
 		return $status;
 	}
+
+	protected function handleDeleteAction()
+	{
+		$row = $this->model->find(\Input::get('id'));
+		$this->handleDelete($row);
+		
+		return $this->redirect($this->section);
+	}
 	
 	protected function handleIndexPost()
 	{

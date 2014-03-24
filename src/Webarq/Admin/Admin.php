@@ -3,7 +3,7 @@ class Admin {
 	
 	private $currencyFields = array();
 	private $dateFields = array();
-	private $dateTimeFields = array();
+	private $dateTimeFields = array('created_at', 'updated_at');
 	private $imageFields = array();
 
 	public function formatDate($rowValue)
@@ -63,7 +63,7 @@ class Admin {
 
 	public function setDateTimeFields($fields)
 	{
-		$this->dateTimeFields = $fields;
+		$this->dateTimeFields += $fields;
 	}
 
 	// Usage: \Admin::setImageFields(array('img' => 100, 'banner' => 80));

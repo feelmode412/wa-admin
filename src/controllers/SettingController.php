@@ -29,6 +29,8 @@ class SettingController extends AdminController {
 		$this->layout->breadcrumbs = $this->breadcrumbs;
 		
 		$this->layout->content = \View::make('admin::list', array(
+			'defaultSortField' => $this->defaultSortField,
+			'defaultSortType' => $this->defaultSortType,
 			'disabledActions' => array('addNew', 'delete'),
 			'fields' => array(
 				'code' => 'Code',
@@ -37,9 +39,6 @@ class SettingController extends AdminController {
 			),
 			'rows' => $this->model,
 			'section' => $this->section,
-			'sort' => \Input::get('sort', $this->defaultSortField),
-			'sortType' => \Input::get('sort_type', $this->defaultSortType),
-			'sortUrl' => admin_url($this->section.'?page='.\Input::get('page').'&search='.\Input::get('search').'&sort='),
 		));
 	}
 	

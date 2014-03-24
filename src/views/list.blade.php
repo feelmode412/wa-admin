@@ -1,4 +1,7 @@
 <?php $search = Input::get('search') ?>
+<?php $sort = Input::get('sort', $defaultSortField) ?>
+<?php $sortType = \Input::get('sort_type', $defaultSortType) ?>
+<?php $sortUrl = admin_url($section.'?page='.Input::get('page').'&search='.Input::get('search').'&sort=') ?>
 
 <div class="top_table">
 	<div class="left">

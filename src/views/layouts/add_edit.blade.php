@@ -1,4 +1,4 @@
-<form action="{{ URL::current() }}" method="post" class="form2 validated" enctype="multipart/form-data">
+<form action="{{ URL::full() }}" method="post" class="form2 validated" enctype="multipart/form-data">
 	<table width="100%" border="0" cellpadding="0" class="form_input">
 		<tr>
 			<td width="170">

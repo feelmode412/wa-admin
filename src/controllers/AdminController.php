@@ -65,7 +65,7 @@ class AdminController extends \Controller {
 		{
 			$model->delete();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$status = false;
 		}
@@ -116,7 +116,7 @@ class AdminController extends \Controller {
 		{
 			$model->save();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$status = false;
 		}
@@ -142,7 +142,7 @@ class AdminController extends \Controller {
 			{
 				$row->delete();
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$deletedRows--;
 			}
@@ -202,7 +202,7 @@ class AdminController extends \Controller {
 		{
 			$model->update();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$status = false;
 		}

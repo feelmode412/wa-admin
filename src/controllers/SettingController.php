@@ -4,8 +4,6 @@ class SettingController extends AdminController {
 	
 	private $breadcrumbs;
 	private $defaultSortField = 'type'; // Sorting with field 'type' as default value
-	private $defaultSortType = 'ASC';
-	private $model;
 	private $section = 'setting';
 	private $view_path = 'admin::setting';
 	
@@ -15,6 +13,7 @@ class SettingController extends AdminController {
 		$this->activeMenu = 'system';
 		$this->model = new \Webarq\Site\Setting;
 		$this->pageTitle = 'Settings';
+		$this->searchableFields = array('code', 'type', 'value');
 		
 		$this->breadcrumbs = array(
 			'System &amp; Utilities' => '#',
@@ -24,15 +23,7 @@ class SettingController extends AdminController {
 
 	public function getIndex()
 	{
-		// Handle searching
-		$this->model = $this->handleSearch($this->model, array('code', 'type', 'value'));
-		
-		$rows = $this->model
-			->orderBy(\Input::get('sort', $this->defaultSortField), \Input::get('sort_type', $this->defaultSortType))
-			->paginate($this->getRowsPerPage());
-		
-		// By default, handle if $rows is empty
-		$this->handleEmptyModel($rows);
+		$this->handleBasicActions($this->defaultSortField);
 		
 		// Breadcrumbs
 		$this->layout->breadcrumbs = $this->breadcrumbs;
@@ -44,8 +35,7 @@ class SettingController extends AdminController {
 				'type' => 'Type',
 				'value' => 'Value',
 			),
-			'rows' => $rows,
-			'search' => \Input::get('search'),
+			'rows' => $this->model,
 			'section' => $this->section,
 			'sort' => \Input::get('sort', $this->defaultSortField),
 			'sortType' => \Input::get('sort_type', $this->defaultSortType),

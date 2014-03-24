@@ -1,3 +1,5 @@
+<?php $search = Input::get('search') ?>
+
 <div class="top_table">
 	<div class="left">
 		@if ( ! isset($disabledActions) || ! in_array('addNew', $disabledActions))

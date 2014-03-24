@@ -2,8 +2,11 @@
 class AdminController extends \Controller {
 	
 	protected $activeMenu;
+	protected $defaultSortType = 'ASC';
 	protected $layout = 'admin::layouts.master';
+	protected $model;
 	protected $pageTitle;
+	protected $searchableFields = array();
 	protected $settings;
 	
 	public function __construct()
@@ -90,6 +93,20 @@ class AdminController extends \Controller {
 		}
 
 		return $this->redirect($section);
+	}
+
+	protected function handleBasicActions($defaultSortField)
+	{
+		// Handle searching
+		$this->model = $this->handleSearch($this->model, $this->searchableFields);
+		
+		// Sorting and pagination
+		$this->model = $this->model
+			->orderBy(\Input::get('sort', $defaultSortField), \Input::get('sort_type', $this->defaultSortType))
+			->paginate($this->getRowsPerPage());
+		
+		// By default, handle if $rows is empty
+		$this->handleEmptyModel($this->model);
 	}
 
 	protected function handleInsert($model)

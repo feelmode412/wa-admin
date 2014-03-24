@@ -213,7 +213,7 @@ class AdminController extends \Controller {
 		}
 		else
 		{
-			$this->createMessage('Update failed. Please make sure the new data will not make duplication.', 'error');
+			$this->createMessage('Update failed. Please make sure the new data would not make duplication.', 'error');
 		}
 
 		return $status;

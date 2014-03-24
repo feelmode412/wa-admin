@@ -4,7 +4,6 @@ class SettingController extends AdminController {
 	
 	private $breadcrumbs;
 	private $defaultSortField = 'type'; // Sorting with field 'type' as default value
-	private $section = 'setting';
 	private $view_path = 'admin::setting';
 	
 	public function __construct()
@@ -14,6 +13,7 @@ class SettingController extends AdminController {
 		$this->model = new \Webarq\Site\Setting;
 		$this->pageTitle = 'Settings';
 		$this->searchableFields = array('code', 'type', 'value');
+		$this->section = 'setting';
 		
 		$this->breadcrumbs = array(
 			'System &amp; Utilities' => '#',
@@ -44,7 +44,7 @@ class SettingController extends AdminController {
 	
 	public function postIndex()
 	{
-		return $this->handleIndexPost($this->section, $this->model);
+		return $this->handleIndexPost();
 	}
 	
 	public function getAddedit() // Add and Edit

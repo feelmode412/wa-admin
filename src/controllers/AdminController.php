@@ -7,6 +7,7 @@ class AdminController extends \Controller {
 	protected $model;
 	protected $pageTitle;
 	protected $searchableFields = array();
+	protected $section;
 	protected $settings;
 	
 	public function __construct()
@@ -82,17 +83,17 @@ class AdminController extends \Controller {
 		return $status;
 	}
 	
-	protected function handleIndexPost($section, $model)
+	protected function handleIndexPost()
 	{
 		switch (\Input::get('list-action'))
 		{
 			case 'delete':
-				$model = $model->whereIn('id', array_keys(\Input::get('list-check')))->get();
-				$this->handleMultipleRowDeletion($model);
+				$this->model = $this->model->whereIn('id', array_keys(\Input::get('list-check')))->get();
+				$this->handleMultipleRowDeletion($this->model);
 				break;
 		}
 
-		return $this->redirect($section);
+		return $this->redirect($this->section);
 	}
 
 	protected function handleBasicActions($defaultSortField)

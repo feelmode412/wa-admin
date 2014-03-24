@@ -4,6 +4,7 @@ class SettingController extends AdminController {
 	
 	private $breadcrumbs;
 	private $defaultSortField = 'type'; // Sorting with field 'type' as default value
+	private $defaultSortType = 'ASC';
 	private $model;
 	private $section = 'setting';
 	private $view_path = 'admin::setting';
@@ -27,7 +28,7 @@ class SettingController extends AdminController {
 		$this->model = $this->handleSearch($this->model, array('code', 'type', 'value'));
 		
 		$rows = $this->model
-			->orderBy(\Input::get('sort', $this->defaultSortField), \Input::get('sort_type', 'asc'))
+			->orderBy(\Input::get('sort', $this->defaultSortField), \Input::get('sort_type', $this->defaultSortType))
 			->paginate($this->getRowsPerPage());
 		
 		// By default, handle if $rows is empty
@@ -47,7 +48,7 @@ class SettingController extends AdminController {
 			'search' => \Input::get('search'),
 			'section' => $this->section,
 			'sort' => \Input::get('sort', $this->defaultSortField),
-			'sortType' => \Input::get('sort_type', 'asc'),
+			'sortType' => \Input::get('sort_type', $this->defaultSortType),
 			'sortUrl' => admin_url($this->section.'?page='.\Input::get('page').'&search='.\Input::get('search').'&sort='),
 		));
 	}

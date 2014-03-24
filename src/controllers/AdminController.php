@@ -48,11 +48,6 @@ class AdminController extends \Controller {
 	{
 		return $this->redirect(\Config::get('admin::admin.landingSection'));
 	}
-	
-	protected function getActionTitle()
-	{
-		return (\Input::get('id')) ? 'Edit' : 'Add New';
-	}
 
 	protected function getRowsPerPage()
 	{

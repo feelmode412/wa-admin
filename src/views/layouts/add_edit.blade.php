@@ -2,7 +2,7 @@
 	<table width="100%" border="0" cellpadding="0" class="form_input">
 		<tr>
 			<td width="170">
-				<h3>{{ $legend }}</h3>
+				<h3>{{ \Admin::getAddEditTitle() }}</h3>
 			</td>
 			<td width="5">&nbsp;</td>
 			<td>&nbsp;</td>

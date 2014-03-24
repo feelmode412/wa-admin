@@ -15,6 +15,11 @@ class Admin {
 	{
 		return date('M j, Y H:i:s', strtotime($rowValue));
 	}
+
+	public function getAddEditTitle()
+	{
+		return (\Input::get('id')) ? 'Edit' : 'Add New';
+	}
 	
 	public function getFieldValue($row, $fieldName)
 	{

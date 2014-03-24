@@ -50,11 +50,10 @@ class SettingController extends AdminController {
 	public function getAddedit() // Add and Edit
 	{
 		// Breadcrumbs
-		$this->breadcrumbs[$this->getActionTitle()] = '#';
+		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';
 		$this->layout->breadcrumbs = $this->breadcrumbs;
 		
 		$this->layout->content = \View::make($this->view_path.'.add_edit', array(
-			'legend' => $this->getActionTitle(),
 			'row' => (\Input::get('id')) ? $this->model->find(\Input::get('id')) : null,
 			'section' => $this->section,
 		));

@@ -1,4 +1,4 @@
-<form action="" method="post" class="form2 validated" enctype="multipart/form-data">
+<form action="{{ URL::current() }}" method="post" class="form2 validated" enctype="multipart/form-data">
 	<table width="100%" border="0" cellpadding="0" class="form_input">
 		<tr>
 			<td width="170">
@@ -16,9 +16,6 @@
 			<td>
 				<input name="save" type="submit" class="btn-save" value=""/>
 				<input name="reset" type="reset" class="btn-cancel" value="" onclick="location = '{{ admin_url($section) }}'"/>
-			@if ( isset($sendStatus))
-				<input name="send" type="submit" class="btn-save" value=" "/>
-			@endif
 			</td>
 		</tr>
 	</table>

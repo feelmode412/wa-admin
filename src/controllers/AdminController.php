@@ -1,9 +1,12 @@
 <?php namespace Webarq\Admin;
 class AdminController extends \Controller {
 	
-	protected $activeMenu;
+	protected $activeMainMenu;
 	protected $breadcrumbs;
-	protected $defaultSortType = 'ASC';
+	protected $defaultSortField;
+	protected $defaultSortType = 'asc'; // Must be lower case
+	protected $disabledActions = array(); // array('addNew', 'delete', 'search')
+	protected $fieldTitles = array();
 	protected $layout = 'admin::layouts.master';
 	protected $model;
 	protected $pageTitle;
@@ -22,6 +25,11 @@ class AdminController extends \Controller {
 		});
 
 		$this->setting = new \Webarq\Site\Setting;
+	}
+
+	protected function createFailedInsertUpdateMessage()
+	{
+		$this->createMessage('Adding / updating data failed. Please make sure:<br/>1. Any of the required fields was not left empty<br/>2. The new data would not make duplication', 'error');
 	}
 
 	/**
@@ -98,6 +106,27 @@ class AdminController extends \Controller {
 		
 		return $this->redirect($this->section);
 	}
+
+	protected function handleIndexLayout()
+	{
+		// Breadcrumbs
+		$this->layout->breadcrumbs = $this->breadcrumbs;
+
+		$this->layout->content = \View::make('admin::list', array(
+			'defaultSortField' => $this->defaultSortField,
+			'defaultSortType' => $this->defaultSortType,
+			'disabledActions' => $this->disabledActions,
+			'fields' => $this->fieldTitles,
+			'rows' => $this->model,
+			'section' => $this->section,
+		));
+	}
+
+	protected function handleIndexAction()
+	{
+		$this->handleBasicActions();
+		$this->handleIndexLayout();
+	}
 	
 	protected function handleIndexPost()
 	{
@@ -129,14 +158,14 @@ class AdminController extends \Controller {
 		return $this->redirect($status ? $this->section : $this->section.'/addedit?id='.$id);
 	}
 
-	protected function handleBasicActions($defaultSortField)
+	protected function handleBasicActions()
 	{
 		// Handle searching
 		$this->model = $this->handleSearch($this->model, $this->searchableFields);
 		
 		// Sorting and pagination
 		$this->model = $this->model
-			->orderBy(\Input::get('sort', $defaultSortField), \Input::get('sort_type', $this->defaultSortType))
+			->orderBy(\Input::get('sort', $this->defaultSortField), \Input::get('sort_type', $this->defaultSortType))
 			->paginate($this->getRowsPerPage());
 		
 		// By default, handle if $rows is empty
@@ -161,7 +190,7 @@ class AdminController extends \Controller {
 		}
 		else
 		{
-			$this->createMessage('Adding data failed. Please make sure:<br/>1. All of the required fields was not left empty<br/>2. The new data would not make duplication', 'error');
+			$this->createFailedInsertUpdateMessage();
 		}
 
 		return $status;
@@ -247,7 +276,7 @@ class AdminController extends \Controller {
 		}
 		else
 		{
-			$this->createMessage('Update failed. Please make sure the new data would not make duplication.', 'error');
+			$this->createFailedInsertUpdateMessage();
 		}
 
 		return $status;
@@ -280,7 +309,7 @@ class AdminController extends \Controller {
 			$this->layout = \View::make($this->layout, array(
 				'isLoginPage' => false,
 				'menu'        => \View::make('admin::menu', array(
-					'activeMenu' => $this->activeMenu,
+					'activeMainMenu' => $this->activeMainMenu,
 				)),
 				'message'     => \Session::get('message'),
 				'pageTitle'   => $this->pageTitle,

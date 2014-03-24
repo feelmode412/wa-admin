@@ -2,15 +2,20 @@
 
 class SettingController extends AdminController {
 	
-	private $defaultSortField = 'type'; // Sorting with field 'type' as default value
-	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->activeMenu = 'system';
+		$this->activeMainMenu = 'system';
+
+		// For listing
+		$this->fieldTitles = array(
+			'code' => 'Code',
+			'type' => 'Type',
+			'value' => 'Value',
+		);
+
 		$this->model = new \Webarq\Site\Setting;
 		$this->pageTitle = 'Settings';
-		$this->searchableFields = array('code', 'type', 'value');
 		$this->section = 'setting';
 		$this->viewPath = 'admin::setting';
 		
@@ -22,23 +27,10 @@ class SettingController extends AdminController {
 
 	public function getIndex()
 	{
-		$this->handleBasicActions($this->defaultSortField);
-		
-		// Breadcrumbs
-		$this->layout->breadcrumbs = $this->breadcrumbs;
-		
-		$this->layout->content = \View::make('admin::list', array(
-			'defaultSortField' => $this->defaultSortField,
-			'defaultSortType' => $this->defaultSortType,
-			'disabledActions' => array('addNew', 'delete'),
-			'fields' => array(
-				'code' => 'Code',
-				'type' => 'Type',
-				'value' => 'Value',
-			),
-			'rows' => $this->model,
-			'section' => $this->section,
-		));
+		$this->defaultSortField = 'type';
+		$this->disabledActions = array('addNew', 'delete');
+		$this->searchableFields = array_keys($this->fieldTitles);
+		return $this->handleIndexAction();
 	}
 	
 	public function postIndex()
@@ -53,7 +45,7 @@ class SettingController extends AdminController {
 	
 	public function postAddedit()
 	{
-		return $this->handleAddEditPost(array('code', 'type', 'value'));
+		return $this->handleAddEditPost(array_keys($this->fieldTitles));
 	}
 	
 	public function getDelete()

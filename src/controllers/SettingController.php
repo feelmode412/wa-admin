@@ -54,15 +54,7 @@ class SettingController extends AdminController {
 	
 	public function postIndex()
 	{
-		switch (\Input::get('list-action'))
-		{
-			case 'delete':
-				$rows = $this->model->wherein('id', array_keys(\Input::get('list-check')))->get();
-				$this->handleMultipleRowDeletion($rows);
-				break;
-		}
-
-		return $this->redirect($this->section);
+		return $this->handleIndexPost($this->section, $this->model);
 	}
 	
 	public function getAddedit() // Add and Edit

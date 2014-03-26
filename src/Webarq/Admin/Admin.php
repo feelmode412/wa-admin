@@ -63,6 +63,11 @@ class Admin {
 		return $fieldValue;
 	}
 
+	public function getUrlPrefix()
+	{
+		return \Config::get('admin::admin.urlPrefix');
+	}
+
 	public function setCurrencyFields($fields)
 	{
 		$this->currencyFields = $fields;

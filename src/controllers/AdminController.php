@@ -22,7 +22,8 @@ class AdminController extends \Controller {
 		{
 			if ((\Auth::guest() || \Auth::user()->role->code !== 'admin') && \Request::segment(2) !== 'auth')
 			{
-				return \Redirect::to('admin-cp/auth/login');
+				$admin = new Admin();
+				return \Redirect::to($admin->getUrlPrefix().'/auth/login');
 			}
 		});
 
@@ -306,7 +307,8 @@ class AdminController extends \Controller {
 	
 	protected function redirect($suffix = null)
 	{
-		$url = 'admin-cp';
+		$admin = new Admin();
+		$url = $admin->getUrlPrefix();
 		if ($suffix)
 		{
 			$url .= '/'.$suffix;

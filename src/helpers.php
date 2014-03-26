@@ -12,7 +12,7 @@
 
 function admin_url($path = null)
 {
-	$url = $_SERVER['SCRIPT_NAME'].'/admin-cp';
+	$url = $_SERVER['SCRIPT_NAME'].'/'.Admin::getUrlPrefix();
 	if ($path)
 	{
 		$url .= '/'.$path;

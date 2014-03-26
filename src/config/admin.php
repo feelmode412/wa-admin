@@ -1,5 +1,6 @@
 <?php
 return array(
+	'urlPrefix' => 'admin-cp',
 	'landingSection' => 'setting',
 	'menu' => array(
 		'system' => array(

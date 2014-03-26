@@ -1,5 +1,5 @@
 <?php
-Route::group(array('prefix' => 'admin-cp'), function()
+Route::group(array('prefix' => Admin::getUrlPrefix()), function()
 {
 	Route::get('/', 'Webarq\Admin\AdminController@getIndex');
 

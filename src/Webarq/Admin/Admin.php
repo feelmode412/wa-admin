@@ -99,7 +99,6 @@ class Admin {
 
 	public function setYesNoFields($fields)
 	{
-		// dd($fields);
 		$this->yesNoFields = $fields;
 	}
 

@@ -3,10 +3,12 @@ class AdminController extends \Controller {
 	
 	protected $activeMainMenu;
 	protected $breadcrumbs;
+	protected $customInputs = array();
 	protected $defaultSortField;
 	protected $defaultSortType = 'asc'; // Must be lower case
 	protected $disabledActions = array(); // array('addNew', 'delete', 'search')
 	protected $fieldTitles = array();
+	protected $inputs = array();
 	protected $layout = 'admin::layouts.master';
 	protected $model;
 	protected $pageTitle;
@@ -55,7 +57,14 @@ class AdminController extends \Controller {
 	
 	public function getIndex()
 	{
-		return $this->redirect(\Config::get('admin::admin.landingSection'));
+		if ( ! \Request::segment(2)) // Admin Panel's landing
+		{
+			return $this->redirect(\Config::get('admin::admin.landingSection'));	
+		}
+		
+		$this->handleBasicActions();
+		$this->handleIndexLayout();
+		
 	}
 
 	protected function getRowsPerPage()
@@ -63,7 +72,7 @@ class AdminController extends \Controller {
 		return $this->setting->ofCodeType('rows_per_page', 'admin_panel')->value;
 	}
 
-	protected function handleAddEditAction()
+	public function getAddedit()
 	{
 		// Breadcrumbs
 		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';
@@ -99,7 +108,7 @@ class AdminController extends \Controller {
 		return $status;
 	}
 
-	protected function handleDeleteAction()
+	public function getDelete()
 	{
 		$row = $this->model->find(\Input::get('id'));
 		$this->handleDelete($row);
@@ -122,13 +131,7 @@ class AdminController extends \Controller {
 		));
 	}
 
-	protected function handleIndexAction()
-	{
-		$this->handleBasicActions();
-		$this->handleIndexLayout();
-	}
-	
-	protected function handleIndexPost()
+	public function postIndex()
 	{
 		switch (\Input::get('list-action'))
 		{
@@ -141,16 +144,25 @@ class AdminController extends \Controller {
 		return $this->redirect($this->section);
 	}
 
-	protected function handleAddEditPost($inputs = array(), $customInputs = array())
+	public function postAddedit()
 	{
 		$id = \Input::get('id');
 		$row = ($id) ? $this->model->find($id) : $this->model;
+
+		$inputs = $this->inputs;
+
+		// You don't need to declare $this->inputs if the input fields are the same with fields shown on List / Index
+		if ( ! $inputs)
+		{
+			$inputs = array_keys($this->fieldTitles);
+		}
 		
 		foreach ($inputs as $input)
 		{
 			$row->{$input} = \Admin::setFieldValue($input);
 		}
 
+		$customInputs = $this->customInputs;
 		foreach ($customInputs as $fieldName => $fieldValue)
 		{
 			$row->{$fieldName} = $fieldValue;
@@ -321,6 +333,38 @@ class AdminController extends \Controller {
 				'websiteName' => \Config::get('app.name'),
 			));
 		}
+	}
+
+	// Deprecated
+	protected function handleAddEditAction()
+	{
+		return self::getAddedit();
+	}
+
+	// Deprecated
+	protected function handleAddEditPost($inputs = array(), $customInputs = array())
+	{
+		$this->inputs = $inputs;
+		$this->customInputs = $customInputs;
+		return self::postAddedit();
+	}
+
+	// Deprecated
+	protected function handleDeleteAction()
+	{
+		return self::getDelete();
+	}
+
+	// Deprecated
+	protected function handleIndexAction()
+	{
+		return self::getIndex();
+	}
+	
+	// Deprecated
+	protected function handleIndexPost()
+	{
+		return self::postIndex();
 	}
 
 }

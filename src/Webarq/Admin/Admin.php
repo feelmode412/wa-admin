@@ -71,6 +71,19 @@ class Admin {
 		$this->dateTimeFields += $fields;
 	}
 
+	public function setFieldValue($fieldName)
+	{
+		$input = \Input::get($fieldName);
+		$fieldValue = $input;
+		if (in_array($fieldName, $this->dateFields))
+		{
+			// From MM/DD/YY to YYYY/MM/DD
+			$fieldValue = '20'.substr($input, -2).'-'.substr($input, 0, 2).'-'.substr($input, 3, 2);
+		}
+		
+		return $fieldValue;
+	}
+
 	// Usage: \Admin::setImageFields(array('img' => 100, 'banner' => 80));
 	public function setImageFields($fields)
 	{

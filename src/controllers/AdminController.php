@@ -148,7 +148,7 @@ class AdminController extends \Controller {
 		
 		foreach ($inputs as $input)
 		{
-			$row->{$input} = \Input::get($input);
+			$row->{$input} = \Admin::setFieldValue($input);
 		}
 
 		foreach ($customInputs as $fieldName => $fieldValue)

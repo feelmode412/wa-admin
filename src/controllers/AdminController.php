@@ -63,7 +63,7 @@ class AdminController extends \Controller {
 		return $this->setting->ofCodeType('rows_per_page', 'admin_panel')->value;
 	}
 
-	protected function handleAddEditAction($viewPath)
+	protected function handleAddEditAction()
 	{
 		// Breadcrumbs
 		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';

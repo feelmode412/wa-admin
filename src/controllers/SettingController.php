@@ -38,7 +38,7 @@ class SettingController extends AdminController {
 	
 	public function getAddedit()
 	{
-		return $this->handleAddEditAction($this->viewPath);
+		return $this->handleAddEditAction();
 	}
 	
 	public function postAddedit()

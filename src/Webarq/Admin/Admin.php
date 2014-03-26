@@ -6,6 +6,9 @@ class Admin {
 	private $dateTimeFields = array('created_at', 'updated_at');
 	private $imageFields = array();
 
+	// For enum('Y', 'N') column type
+	private $yesNoFields = array();
+
 	public function formatDate($rowValue)
 	{
 		return date('M j, Y', strtotime($rowValue));
@@ -52,6 +55,10 @@ class Admin {
 		{
 			$fieldValue = \HTML::image(asset('contents/'.$row->{$fieldName}), $row->{$fieldName}, array('width' => $this->imageFields[$fieldName]));
 		}
+		elseif (in_array($fieldName, $this->yesNoFields))
+		{
+			$fieldValue = ($fieldValue == 'Y') ? __('Yes') : __('No');
+		}
 
 		return $fieldValue;
 	}
@@ -88,6 +95,12 @@ class Admin {
 	public function setImageFields($fields)
 	{
 		$this->imageFields = $fields;
+	}
+
+	public function setYesNoFields($fields)
+	{
+		// dd($fields);
+		$this->yesNoFields = $fields;
 	}
 
 }

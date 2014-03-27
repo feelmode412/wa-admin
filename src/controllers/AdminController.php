@@ -41,7 +41,7 @@ class AdminController extends \Controller {
 	{
 		$selected = null;
 		$list = array(
-			append_current_url(array($foreignKey => '', 'page' => '')) => '- All '.$label.' -'
+			append_current_url(array($foreignKey => '', 'page' => '')) => '- All '.\Str::plural($label).' -'
 		);
 		
 		$model = new $model;

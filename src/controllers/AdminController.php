@@ -11,6 +11,7 @@ class AdminController extends \Controller {
 	protected $fieldTitles = array();
 	protected $inputs = array();
 	protected $layout = 'admin::layouts.master';
+	protected $listFilters = array();
 	protected $model;
 	protected $pageTitle;
 	protected $searchableFields = array();
@@ -34,6 +35,30 @@ class AdminController extends \Controller {
 	protected function createFailedInsertUpdateMessage()
 	{
 		$this->createMessage('Adding / updating data failed. Please make sure:<br/>1. Any of the required fields was not left empty<br/>2. The new data would not make duplication', 'error');
+	}
+
+	public function createListFilter($model, $foreignKey, $foreignName, $label)
+	{
+		$selected = null;
+		parse_str($_SERVER['QUERY_STRING'], $parsedStr);
+		unset($parsedStr[$foreignKey]);
+		$list = array(
+			admin_url($this->section.'?'.http_build_query($parsedStr)) => '- All '.$label.' -'
+		);
+		
+		$model = new $model;
+		$rows = $model->orderBy($foreignName)->get();
+		foreach ($rows as $row)
+		{
+			$url = append_current_url(array($foreignKey => $row->id));
+			
+			if ($row->id == \Input::get($foreignKey))
+				$selected = $url;
+
+			$list[$url] = $row->{$foreignName};
+		}
+
+		return \Form::select($foreignKey, $list, $selected, array('class' => 'list-filter'));
 	}
 
 	/**
@@ -129,6 +154,7 @@ class AdminController extends \Controller {
 			'disabledActions' => $this->disabledActions,
 			'disabledSortFields' => $this->disabledSortFields,
 			'fields' => $this->fieldTitles,
+			'filters' => $this->listFilters,
 			'rows' => $this->model,
 			'section' => $this->section,
 		));
@@ -180,6 +206,12 @@ class AdminController extends \Controller {
 
 	protected function handleBasicActions()
 	{
+		foreach (array_keys($this->listFilters) as $listFilter)
+		{
+			if (\Input::get($listFilter))
+				$this->model = $this->model->where($listFilter, \Input::get($listFilter));
+		}
+
 		// Handle searching
 		$this->model = $this->handleSearch($this->model, $this->searchableFields);
 		
@@ -269,10 +301,13 @@ class AdminController extends \Controller {
 		$term = \Input::get('search');
 		if ($term)
 		{
-			foreach ($involvedFields as $field)
+			$model = $model->where(function($model) use ($involvedFields, $term)
 			{
-				$model = $model->orWhere($field, 'LIKE', '%'.$term.'%');
-			}
+				foreach ($involvedFields as $field)
+				{
+					$model = $model->orWhere($field, 'LIKE', '%'.$term.'%');
+				}
+			});
 		}
 		
 		return $model;

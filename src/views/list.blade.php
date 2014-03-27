@@ -1,24 +1,36 @@
 <?php $search = Input::get('search') ?>
 <?php $sort = Input::get('sort', $defaultSortField) ?>
 <?php $sortType = \Input::get('sort_type', $defaultSortType) ?>
-<?php $sortUrl = admin_url($section.'?page='.Input::get('page').'&search='.Input::get('search').'&sort=') ?>
 
 <div class="top_table">
 	<div class="left">
+		
 		@if ( ! isset($disabledActions) || ! in_array('addNew', $disabledActions))
 			<a class="button-add" href="{{ admin_url($section.'/addedit') }}"><span>Add New</span></a>
 		@endif
+
 		@if ( ! isset($disabledActions) || ! in_array('delete', $disabledActions))
 			<a id="list-delete" class="button-delete list-action" href="#"><span>Delete</span></a>
 		@endif
+
+		@foreach ($filters as $filter)
+			{{ $filter }}
+		@endforeach
+
 	</div>
 	<div class="right">
 		@if ( ! isset($disabledActions) || ! in_array('search', $disabledActions))
-			<form method="get" action="{{ admin_url($section) }}" class="form1">
+			<form method="get" action="{{ URL::current() }}" class="form1">
+
+				<?php parse_str($_SERVER['QUERY_STRING'], $parsedStr) ?>
+				@foreach ($parsedStr as $key => $value)
+					{{ Form::hidden($key, $value) }}
+				@endforeach
+
 				<fieldset>
 					<input name="search" id="search" type="text" class="ip_search search" value="{{ ($search) ?: 'Search' }}"/>
 					@if ($search)
-						<div class="x_remove"><a href="{{ admin_url($section) }}">x</a></div>
+						<div class="x_remove"><a href="{{ append_current_url(array('search' => '')) }}">x</a></div>
 					@endif
 				</fieldset>
 			</form>
@@ -42,7 +54,11 @@
 							@if ($sort == $fieldName && $sortType == 'asc')
 								@yield($nextSortType = 'desc')
 							@endif
-							<a href="{{ $sortUrl.$fieldName.'&sort_type='.$nextSortType }}" class="{{ ($sort == $fieldName) ? 'sorted-'.$sortType : null }}">{{ $fieldTitle }}</a>
+							
+							<a href="{{ append_current_url(array('sort' => $fieldName, 'sort_type' => $nextSortType)) }}" class="{{ ($sort == $fieldName) ? 'sorted-'.$sortType : null }}">
+								{{ $fieldTitle }}
+							</a>
+
 						@else
 							{{ $fieldTitle }}
 						@endif

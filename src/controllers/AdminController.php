@@ -6,6 +6,7 @@ class AdminController extends \Controller {
 	protected $customInputs = array();
 	protected $defaultSortField;
 	protected $defaultSortType = 'asc'; // Must be lower case
+	protected $disabledSortFields = array();
 	protected $disabledActions = array(); // array('addNew', 'delete', 'search')
 	protected $fieldTitles = array();
 	protected $inputs = array();
@@ -126,6 +127,7 @@ class AdminController extends \Controller {
 			'defaultSortField' => $this->defaultSortField,
 			'defaultSortType' => $this->defaultSortType,
 			'disabledActions' => $this->disabledActions,
+			'disabledSortFields' => $this->disabledSortFields,
 			'fields' => $this->fieldTitles,
 			'rows' => $this->model,
 			'section' => $this->section,

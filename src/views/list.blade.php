@@ -37,7 +37,7 @@
 				<th width="15">#</th>
 				@foreach ($fields as $fieldName => $fieldTitle)
 					<th>
-						@if ( ! isset($disabledSorts) || ! in_array($fieldName, $disabledSorts))
+						@if ( ! in_array($fieldName, $disabledSortFields))
 							@yield($nextSortType = 'asc')
 							@if ($sort == $fieldName && $sortType == 'asc')
 								@yield($nextSortType = 'desc')

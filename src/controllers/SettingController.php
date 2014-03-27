@@ -19,6 +19,7 @@ class SettingController extends AdminController {
 		);
 		$this->defaultSortField = 'type';
 		$this->disabledActions = array('addNew', 'delete');
+		$this->disabledSortFields = array('value');
 		$this->fieldTitles = array(
 			'code' => 'Code',
 			'type' => 'Type',

@@ -40,17 +40,15 @@ class AdminController extends \Controller {
 	public function createListFilter($model, $foreignKey, $foreignName, $label)
 	{
 		$selected = null;
-		parse_str($_SERVER['QUERY_STRING'], $parsedStr);
-		unset($parsedStr[$foreignKey]);
 		$list = array(
-			admin_url($this->section.'?'.http_build_query($parsedStr)) => '- All '.$label.' -'
+			append_current_url(array($foreignKey => '', 'page' => '')) => '- All '.$label.' -'
 		);
 		
 		$model = new $model;
 		$rows = $model->orderBy($foreignName)->get();
 		foreach ($rows as $row)
 		{
-			$url = append_current_url(array($foreignKey => $row->id));
+			$url = append_current_url(array($foreignKey => $row->id, 'page' => ''));
 			
 			if ($row->id == \Input::get($foreignKey))
 				$selected = $url;

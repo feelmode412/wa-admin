@@ -24,7 +24,9 @@
 
 				<?php parse_str($_SERVER['QUERY_STRING'], $parsedStr) ?>
 				@foreach ($parsedStr as $key => $value)
-					{{ Form::hidden($key, $value) }}
+					@if ($key !== 'page')
+						{{ Form::hidden($key, $value) }}
+					@endif
 				@endforeach
 
 				<fieldset>

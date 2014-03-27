@@ -15,7 +15,7 @@
 			<td>&nbsp;</td>
 			<td>
 				<input name="save" type="submit" class="btn-save" value=""/>
-				<input name="reset" type="reset" class="btn-cancel" value="" onclick="location = '{{ admin_url($section) }}'"/>
+				<input name="reset" type="reset" class="btn-cancel" value="" onclick="location = '{{ URL::previous() }}'"/>
 			</td>
 		</tr>
 	</table>

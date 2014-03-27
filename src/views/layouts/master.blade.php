@@ -2,23 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-us">
 	<head>
 		<title>{{ isset($pageTitle) ? $pageTitle.' | ' : null }}{{ $websiteName }} Admin Panel</title>
-		<link rel="icon" type="images/x-icon" href="{{ asset('admin') }}/favicon.ico"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/reset.css"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/main.css"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/style_content.css"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/jquery.selectBox_category.css"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/date_input.css"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/dialog_box.css"/>
+		<link rel="icon" type="images/x-icon" href="{{ asset('packages/webarq/admin') }}/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/style_content.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/jquery.selectBox_category.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/date_input.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/dialog_box.css"/>
 		<!--[if IE 7]>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/style_ie7.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/style_ie7.css"/>
 		<![endif]-->
 		<!--[if IE 8]>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/style_ie8.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/style_ie8.css"/>
 		<![endif]-->
 		<!--[if IE 9]>
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/style_ie9.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/style_ie9.css"/>
 		<![endif]-->
-		<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/css/indogrosir.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/indogrosir.css"/>
 	</head>
 	<body>
 		@if ($isLoginPage)
@@ -32,7 +32,7 @@
 		</div>
 		<div id="app_shorcut">
 			<div>
-				<img src="{{ asset('admin') }}/images/general/logo.png" alt="{{ $websiteName }}" class="logo"/>
+				<img src="{{ asset('packages/webarq/admin') }}/images/general/logo.png" alt="{{ $websiteName }}" class="logo"/>
 			</div>
 		</div>
 		
@@ -75,22 +75,22 @@
 		</div>
 		@endif
 		
-		<script type="text/javascript" src="{{ asset('admin') }}/js/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="{{ asset('admin') }}/js/jquery.date_input.js"></script>
-		<script type="text/javascript" src="{{ asset('admin') }}/js/jquery.selectbox_category.js"></script>
-		<script type="text/javascript" src="{{ asset('admin') }}/js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/jquery.date_input.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/jquery.selectbox_category.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/jquery.validate.min.js"></script>
 		<script type="text/javascript">
 			var admin_url = function(suffix) {
 				suffix = (typeof suffix !== "undefined") ? suffix : "";
 				return "{{ admin_url() }}/" + suffix;
 			};
 			var admin_asset = function(suffix) {
-				return "{{ asset('admin') }}/" + suffix;
+				return "{{ asset('packages/webarq/admin') }}/" + suffix;
 			};
 		</script>
-		<script type="text/javascript" src="{{ asset('admin') }}/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="{{ asset('admin') }}/js/scripts.js"></script>
-		<script type="text/javascript" src="{{ asset('admin') }}/js/indogrosir.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/scripts.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/indogrosir.js"></script>
 		
 </body>
 </html>

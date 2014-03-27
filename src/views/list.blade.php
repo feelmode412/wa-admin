@@ -87,17 +87,17 @@
 						@yield($primaryKey = (isset($primaryKey)) ? $primaryKey : 'id')
 						@if (isset($enabledActions) && in_array('detail', $enabledActions))
 							<a href="{{ admin_url($section.'/addedit?id='.$row->id) }}" class="btn_action" title="Detail">
-								<img src="{{ asset('admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />
+								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />
 							</a>
 						@endif
 						@if ( ! isset($disabledActions) || ! in_array('edit', $disabledActions))
 							<a href="{{ admin_url($section.'/addedit?id='.$row->{$primaryKey}) }}" class="btn_action" title="Edit">
-								<img src="{{ asset('admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />
+								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />
 							</a>
 						@endif
 						@if ( ! isset($disabledActions) || ! in_array('delete', $disabledActions))
 							<a href="{{ admin_url($section.'/delete?id='.$row->id) }}" class="btn_action delete" title="Delete">
-								<img src="{{ asset('admin/images/icon/icon-action-03.png') }}" width="22" height="22" alt="" />
+								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-03.png') }}" width="22" height="22" alt="" />
 							</a>
 						@endif
 

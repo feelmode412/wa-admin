@@ -3,7 +3,7 @@
 		@foreach (Config::get('admin::admin.menu') as $id => $values)
 			<li>
 				<a href="{{ admin_url($values['route']) }}" class="{{ ($activeMainMenu === $id) ? 'active' : null }}">
-					<img src="{{ asset('admin') }}/images/icon/{{ $values['img'] }}" width="12" height="10" alt="" /><span>{{ $values['title'] }}</span>
+					<img src="{{ asset('packages/webarq/admin') }}/images/icon/{{ $values['img'] }}" width="12" height="10" alt="" /><span>{{ $values['title'] }}</span>
 				</a>
 				@if (isset($values['subs']))
 					<ul>

@@ -8,15 +8,16 @@ class SettingController extends AdminController {
 
 		// General
 		$this->activeMainMenu = 'system';
-		$this->model = new \Webarq\Site\Setting;
-
-		// For list / index
 		$this->pageTitle = 'Settings';
+		$this->model = new \Webarq\Site\Setting;
 		$this->section = 'setting';
 		$this->breadcrumbs = array(
 			'System &amp; Utilities' => '#',
 			$this->pageTitle => admin_url($this->section)
 		);
+		$this->viewPath = 'admin::setting';
+
+		// For list / index
 		$this->defaultSortField = 'type';
 		$this->disabledActions = array('addNew', 'delete');
 		$this->disabledSortFields = array('value');
@@ -26,7 +27,6 @@ class SettingController extends AdminController {
 			'value' => 'Value',
 		);
 		$this->searchableFields = array_keys($this->fieldTitles);
-		$this->viewPath = 'admin::setting';
 
 		// For add / edit
 		$this->inputs = array('value');

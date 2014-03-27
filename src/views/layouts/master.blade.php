@@ -18,7 +18,7 @@
 		<!--[if IE 9]>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/style_ie9.css"/>
 		<![endif]-->
-		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/indogrosir.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/app_styles.css"/>
 	</head>
 	<body>
 		@if ($isLoginPage)
@@ -90,7 +90,7 @@
 		</script>
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/ckeditor/ckeditor.js"></script>
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/scripts.js"></script>
-		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/indogrosir.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/app_scripts.js"></script>
 		
 </body>
 </html>

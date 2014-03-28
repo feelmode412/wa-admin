@@ -5,6 +5,7 @@ class Admin {
 	private $dateFields = array();
 	private $dateTimeFields = array('created_at', 'updated_at');
 	private $imageFields = array();
+	private $recursiveFields = array();
 
 	// For enum('Y', 'N') column type
 	private $yesNoFields = array();
@@ -31,12 +32,17 @@ class Admin {
 		{
 			$fieldValue = $row->{$fieldName};
 		}
-		else
+		elseif ( ! in_array($fieldName, $this->recursiveFields))
 		{
 			$fieldValue = $row->{$exploded[0]};
 			unset($exploded[0]);
 			foreach ($exploded as $val)
 				$fieldValue = $fieldValue->{$val};
+		}
+		else
+		{
+			$parentRow = $row->find($row->{$exploded[0]});
+			$fieldValue = ($parentRow) ? $parentRow->{$exploded[1]} : NULL;
 		}
 
 		if (in_array($fieldName, $this->currencyFields))
@@ -100,6 +106,11 @@ class Admin {
 	public function setImageFields($fields)
 	{
 		$this->imageFields = $fields;
+	}
+
+	public function setRecursiveFields($fields)
+	{
+		$this->recursiveFields = $fields;
 	}
 
 	public function setYesNoFields($fields)

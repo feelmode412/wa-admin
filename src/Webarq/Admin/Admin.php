@@ -53,7 +53,7 @@ class Admin {
 		}
 		elseif (in_array($fieldName, array_keys($this->imageFields)))
 		{
-			$fieldValue = \HTML::image(asset('contents/'.$row->{$fieldName}), $row->{$fieldName}, array('width' => $this->imageFields[$fieldName]));
+			$fieldValue = \HTML::image(asset('contents/'.$fieldValue), $fieldValue, array('width' => $this->imageFields[$fieldName]));
 		}
 		elseif (in_array($fieldName, $this->yesNoFields))
 		{

@@ -199,7 +199,22 @@ class AdminController extends \Controller {
 			? $this->handleUpdate($row)
 			: $this->handleInsert($row);
 
-		return $this->redirect($status ? $this->section : $this->section.'/addedit?id='.$id);
+		\Session::put('addMore', (bool) \Input::get('add_more'));
+
+		if ( ! $status)
+		{
+			$url = $this->section.'/addedit?id='.$id;
+		}
+		elseif (\Session::get('addMore'))
+		{
+			$url = $this->section.'/addedit';	
+		}
+		else
+		{
+			$url = $this->section;
+		}
+		
+		return $this->redirect($url);
 	}
 
 	protected function handleBasicActions()

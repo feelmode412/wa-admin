@@ -14,8 +14,12 @@
 			<td><i>* = Required fields</i></td>
 			<td>&nbsp;</td>
 			<td>
+				@if ( ! Input::get('id'))
+					{{ Form::checkbox('add_more', '1', Session::get('addMore'), array('style' => 'width: 20px; margin: 0px 3px 15px 0px')) }}Add more after saving
+					<br/>
+				@endif
 				<input name="save" type="submit" class="btn-save" value=""/>
-				<input name="reset" type="reset" class="btn-cancel" value="" onclick="location = '{{ URL::previous() }}'"/>
+				<input name="reset" type="reset" class="btn-cancel" value="" onclick="location = '{{ ( ! Input::get('id') && Session::get('addMore')) ? admin_url($section) : URL::previous() }}'"/>
 			</td>
 		</tr>
 	</table>

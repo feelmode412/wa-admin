@@ -29,7 +29,7 @@ $(document).ready(function() {
 		$(this).css('opacity', '1');
 	});
 
-	$('body').find('input[type=checkbox]').each(function() {
+	$("input.list-checkbox, input#list-check-all").each(function() {
 		if ($(this).is(':checked'))
 		{
 			$(this).parent().css('background-image', 'url(' + admin_asset('') + 'images/general/bg-checkbox-active.jpg)');
@@ -40,7 +40,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('input[type=checkbox]').click(function(e) {
+	$("input.list-checkbox").click(function(e) {
 		if ($(this).is(':checked'))
 		{
 			$(this).parent().css('background-image', 'url(' + admin_asset('') + 'images/general/bg-checkbox-active.jpg)');
@@ -62,13 +62,12 @@ $(document).ready(function() {
 	$("input#list-check-all").change(function() {
 		if (this.checked) {
 			$("input.list-checkbox").attr("checked", "checked"); // ?
-			$("input.list-checkbox").parent().css('background-image', 'url(' + admin_asset('') + 'images/general/bg-checkbox-active.jpg)');
+			$("input.list-checkbox, input#list-check-all").parent().css('background-image', 'url(' + admin_asset('') + 'images/general/bg-checkbox-active.jpg)');
 			
 			$(".list-action").fadeIn("slow");
-		}
-		else {
+		} else {
 			$("input.list-checkbox").removeAttr("checked");
-			$("input.list-checkbox").parent().css('background-image', 'url(' + admin_asset('') + 'images/general/bg-checkbox.jpg)');
+			$("input.list-checkbox, input#list-check-all").parent().css('background-image', 'url(' + admin_asset('') + 'images/general/bg-checkbox.jpg)');
 			
 			$(".list-action").fadeOut();
 		}

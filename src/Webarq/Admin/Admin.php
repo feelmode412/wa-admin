@@ -9,6 +9,7 @@ class Admin {
 
 	// For enum('Y', 'N') column type
 	private $yesNoFields = array();
+	private $customYesNoFields = array();
 
 	public function formatDate($rowValue)
 	{
@@ -63,7 +64,13 @@ class Admin {
 		}
 		elseif (in_array($fieldName, $this->yesNoFields))
 		{
-			$fieldValue = ($fieldValue == 'Y') ? __('Yes') : __('No');
+			$fieldValue = ($fieldValue == 'Y' || $fieldValue == 1) ? __('Yes') : __('No');
+		}
+		elseif (in_array($fieldName, array_keys($this->customYesNoFields)))
+		{
+			$fieldValue = ($fieldValue == 'Y' || $fieldValue == 1)
+				? $this->customYesNoFields[$fieldName][0]
+				: $this->customYesNoFields[$fieldName][1];
 		}
 
 		return $fieldValue;
@@ -113,9 +120,16 @@ class Admin {
 		$this->recursiveFields = $fields;
 	}
 
+	// Usage: \Admin::setYesNoFields(array('field_name1', 'field_name2'))
 	public function setYesNoFields($fields)
 	{
 		$this->yesNoFields = $fields;
+	}
+
+	// Usage: \Admin::setCustomYesNoFields(array('field_name' => array('Paid', 'Unpaid')))
+	public function setCustomYesNoFields($fields)
+	{
+		$this->customYesNoFields = $fields;
 	}
 
 }

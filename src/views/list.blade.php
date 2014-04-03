@@ -86,6 +86,9 @@
 					@endforeach
 					
 					<td align="center" width="100">
+						@foreach ($customActions as $customAction)
+							{{ $customAction }}
+						@endforeach
 						@if ( ! isset($disabledActions) || ! in_array('edit', $disabledActions))
 							<a href="{{ admin_url($section.'/addedit?id='.$row->id) }}" class="btn_action" title="Edit">
 								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />

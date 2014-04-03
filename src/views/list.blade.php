@@ -74,7 +74,9 @@
 			@foreach ($rows as $row)
 				<tr>
 					@if ( ! isset($disabledActions) || ! in_array('delete', $disabledActions))
-						<td align="center"><label class="c_box"><input type="checkbox" class="list-checkbox" name="list-check[{{ $row->id }}]"></label></td>
+						<td align="center">
+							<label class="c_box"><input type="checkbox" class="list-checkbox" name="list-check[{{ $row->id }}]"></label>
+						</td>
 					@endif
 					
 					<td align="center">{{ $i }}</td>
@@ -84,14 +86,8 @@
 					@endforeach
 					
 					<td align="center" width="100">
-						@yield($primaryKey = (isset($primaryKey)) ? $primaryKey : 'id')
-						@if (isset($enabledActions) && in_array('detail', $enabledActions))
-							<a href="{{ admin_url($section.'/addedit?id='.$row->id) }}" class="btn_action" title="Detail">
-								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />
-							</a>
-						@endif
 						@if ( ! isset($disabledActions) || ! in_array('edit', $disabledActions))
-							<a href="{{ admin_url($section.'/addedit?id='.$row->{$primaryKey}) }}" class="btn_action" title="Edit">
+							<a href="{{ admin_url($section.'/addedit?id='.$row->id) }}" class="btn_action" title="Edit">
 								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-02.png') }}" width="22" height="22" alt="" />
 							</a>
 						@endif
@@ -100,7 +96,6 @@
 								<img src="{{ asset('packages/webarq/admin/images/icon/icon-action-03.png') }}" width="22" height="22" alt="" />
 							</a>
 						@endif
-
 					</td>
 				</tr>
 				@yield($i++)

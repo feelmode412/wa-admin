@@ -93,7 +93,7 @@
 					
 					<td align="center" width="100">
 						@foreach (Admin::getCustomRowActions() as $action)
-							<a href="{{ admin_url($section.'/'.$action['id'].'?id='.$row->id) }}" class="btn_action {{ $action['linkClass'] }}" title="{{ $action['label'] }}">
+							<a href="{{ admin_url($section.'/'.$action['id'].'?id='.$row->id) }}" class="btn_action {{ $action['id']}} {{ $action['linkClass'] }}" title="{{ $action['label'] }}">
 								<img src="{{ $action['img'] }}" class="{{ $action['imgClass'] }}" alt=""/>
 							</a>
 						@endforeach

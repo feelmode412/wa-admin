@@ -97,7 +97,7 @@
 					e.preventDefault();
 					$("input#list-action").val("{{ $action['id'] }}");
 					
-					@if (isset($action['confMessage']))
+					@if ($action['confMessage'])
 						c = window.confirm("{{ $action['confMessage'] }}");
 						if (c) $("form#list-form").submit();
 					@else

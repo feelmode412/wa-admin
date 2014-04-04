@@ -51,7 +51,7 @@
 	<table cellpadding="0" cellspacing="0" width="100%" class="t2">
 		<thead>
 			<tr>
-				@if ( ! isset($disabledActions) || ! in_array('delete', $disabledActions))
+				@if (Admin::getCustomListActions() || ! isset($disabledActions) || ! in_array('delete', $disabledActions))
 					<th width="15"><label class="c_box"><input type="checkbox" id="list-check-all"/></label></th>
 				@endif
 				<th width="15">#</th>
@@ -79,7 +79,7 @@
 			@yield($i = $rows->getFrom())
 			@foreach ($rows as $row)
 				<tr>
-					@if ( ! isset($disabledActions) || ! in_array('delete', $disabledActions))
+					@if (Admin::getCustomListActions() || ! isset($disabledActions) || ! in_array('delete', $disabledActions))
 						<td align="center">
 							<label class="c_box"><input type="checkbox" class="list-checkbox" name="list-check[{{ $row->id }}]"></label>
 						</td>

@@ -13,6 +13,12 @@
 			<a id="list-delete" class="button-delete list-action" href="#"><span>Delete</span></a>
 		@endif
 
+		@foreach (Admin::getCustomListActions() as $action)
+			<a id="list-{{ $action['id'] }}" class="{{ @$action['cssClass']}} list-action" href="#">
+				<span>{{ $action['label'] }}</span>
+			</a>
+		@endforeach
+
 		@foreach ($filters as $filter)
 			{{ $filter }}
 		@endforeach

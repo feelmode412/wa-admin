@@ -2,6 +2,7 @@
 class Admin {
 	
 	private $currencyFields = array();
+	private $customListActions = array();
 	private $dateFields = array();
 	private $dateTimeFields = array('created_at', 'updated_at');
 	private $imageFields = array();
@@ -10,6 +11,16 @@ class Admin {
 	// For enum('Y', 'N') column type
 	private $yesNoFields = array();
 	private $customYesNoFields = array();
+
+	/**
+	* addCustomListAction()
+	*
+	* Usage: \Admin::addCustomListAction('verify', 'Set as Verified', 'ver-button', 'Set selected items as verified?');
+	*/
+	public function addCustomListAction($id, $label, $cssClass = null, $confMessage = null)
+	{
+		$this->customListActions[] = array('id' => $id, 'label' => $label, 'cssClass' => $cssClass, 'confMessage' => $confMessage);
+	}
 
 	public function formatDate($rowValue)
 	{
@@ -24,6 +35,11 @@ class Admin {
 	public function getAddEditTitle()
 	{
 		return (\Input::get('id')) ? 'Edit' : 'Add New';
+	}
+
+	public function getCustomListActions()
+	{
+		return $this->customListActions;
 	}
 	
 	public function getFieldValue($row, $fieldName)

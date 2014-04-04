@@ -91,6 +91,20 @@
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/ckeditor/ckeditor.js"></script>
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/scripts.js"></script>
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/app_scripts.js"></script>
-		
-</body>
+		<script type="text/javascript">
+			@foreach (Admin::getCustomListActions() as $action)
+				$("#list-{{ $action['id'] }}").click(function(e) {
+					e.preventDefault();
+					$("input#list-action").val("{{ $action['id'] }}");
+					
+					@if (isset($action['confMessage']))
+						c = window.confirm("{{ $action['confMessage'] }}");
+						if (c) $("form#list-form").submit();
+					@else
+						$("form#list-form").submit();
+					@endif
+				});
+			@endforeach
+		</script>
+	</body>
 </html>

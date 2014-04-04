@@ -1,7 +1,5 @@
 <?php namespace Webarq\Admin;
 
-// use AdminController, Auth, Input;
-
 class AuthController extends AdminController {
 	
 	public function getLogin()

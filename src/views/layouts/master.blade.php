@@ -105,6 +105,19 @@
 					@endif
 				});
 			@endforeach
+
+			@foreach (Admin::getCustomRowActions() as $action)
+				$("a.{{ $action['id'] }}").click(function(e) {
+					e.preventDefault();
+
+					@if ($action['confMessage'])
+						var c = window.confirm('{{ $action['confMessage'] }}');
+						if (c) window.location = this.href;
+					@else
+						window.location = this.href;
+					@endif
+				});
+			@endforeach
 		</script>
 	</body>
 </html>

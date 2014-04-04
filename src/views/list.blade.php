@@ -92,8 +92,10 @@
 					@endforeach
 					
 					<td align="center" width="100">
-						@foreach ($customActions as $customAction)
-							{{ $customAction }}
+						@foreach (Admin::getCustomRowActions() as $action)
+							<a href="{{ admin_url($section.'/'.$action['id'].'?id='.$row->id) }}" class="btn_action {{ $action['linkClass'] }}" title="{{ $action['label'] }}">
+								<img src="{{ $action['img'] }}" class="{{ $action['imgClass'] }}" alt=""/>
+							</a>
 						@endforeach
 						@if ( ! isset($disabledActions) || ! in_array('edit', $disabledActions))
 							<a href="{{ admin_url($section.'/addedit?id='.$row->id) }}" class="btn_action" title="Edit">

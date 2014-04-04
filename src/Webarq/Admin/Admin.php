@@ -3,6 +3,7 @@ class Admin {
 	
 	private $currencyFields = array();
 	private $customListActions = array();
+	private $customRowActions = array();
 	private $dateFields = array();
 	private $dateTimeFields = array('created_at', 'updated_at');
 	private $imageFields = array();
@@ -20,6 +21,23 @@ class Admin {
 	public function addCustomListAction($id, $label, $cssClass = null, $confMessage = null)
 	{
 		$this->customListActions[] = array('id' => $id, 'label' => $label, 'cssClass' => $cssClass, 'confMessage' => $confMessage);
+	}
+
+	/**
+	* addCustomRowAction()
+	*
+	* Usage: \Admin::addCustomRowAction('verify', 'Verify', asset('admin/img.jpg'));
+	*/
+	public function addCustomRowAction($id, $label, $img, $confMessage = null, $linkClass = null, $imgClass = null)
+	{
+		$this->customRowActions[] = array(
+			'id' => $id,
+			'label' => $label,
+			'img' => $img,
+			'confMessage' => $confMessage,
+			'linkClass' => $linkClass,
+			'imgClass' => $imgClass
+		);
 	}
 
 	public function formatDate($rowValue)
@@ -40,6 +58,11 @@ class Admin {
 	public function getCustomListActions()
 	{
 		return $this->customListActions;
+	}
+
+	public function getCustomRowActions()
+	{
+		return $this->customRowActions;
 	}
 	
 	public function getFieldValue($row, $fieldName)

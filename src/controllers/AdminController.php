@@ -3,7 +3,6 @@ class AdminController extends \Controller {
 	
 	protected $activeMainMenu;
 	protected $breadcrumbs;
-	protected $customActions = array();
 	protected $customInputs = array();
 	protected $defaultSortField;
 	protected $defaultSortType = 'asc'; // Must be lower case
@@ -148,7 +147,6 @@ class AdminController extends \Controller {
 		$this->layout->breadcrumbs = $this->breadcrumbs;
 
 		$this->layout->content = \View::make('admin::list', array(
-			'customActions' => $this->customActions,
 			'defaultSortField' => $this->defaultSortField,
 			'defaultSortType' => $this->defaultSortType,
 			'disabledActions' => $this->disabledActions,

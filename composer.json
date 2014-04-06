@@ -26,7 +26,8 @@
     "autoload": {
         "classmap": [
             "src/controllers",
-            "src/migrations"
+            "src/migrations",
+            "src/models"
         ],
         "psr-0": {
             "Webarq\\Admin\\": "src/"

@@ -24,7 +24,7 @@ class AdminController extends \Controller {
 	{
 		$this->beforeFilter(function()
 		{
-			if ((\Auth::guest() || \Auth::user()->role->code !== 'admin') && \Request::segment(2) !== 'auth')
+			if ((\Auth::guest() || ! \Auth::user()->admin) && \Request::segment(2) !== 'auth')
 			{
 				$admin = new Admin();
 				return \Redirect::to($admin->getUrlPrefix().'/auth/login');

@@ -10,12 +10,14 @@ class AuthController extends AdminController {
 	
 	public function postLogin()
 	{
-		if (\Auth::attempt(array('username' => \Input::get('username'), 'password' => \Input::get('password'))) && \Auth::user()->role->code == 'admin')
+		$authentication = \Auth::attempt(array('username' => \Input::get('username'), 'password' => \Input::get('password')));
+		if ($authentication && \Auth::user()->admin)
 		{
 			return $this->redirect(null);
 		}
 		else
 		{
+			\Auth::logout();
 			$this->createMessage('Incorrect username or password.', 'error');
 			return $this->redirect('auth/login');
 		}

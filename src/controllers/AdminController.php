@@ -334,15 +334,13 @@ class AdminController extends \Controller {
 		{
 			$model = $this->model;
 			$searchableFields = $this->searchableFields;
-			$model = $model->where(function($model) use ($searchableFields, $term)
+			$this->model = $this->model->where(function($model) use ($searchableFields, $term)
 			{
 				foreach ($searchableFields as $field)
 				{
 					$model = $model->orWhere($field, 'LIKE', '%'.$term.'%');
 				}
 			});
-
-			$this->model = $model;
 		}
 	}
 

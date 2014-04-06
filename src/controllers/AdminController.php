@@ -17,6 +17,8 @@ class AdminController extends \Controller {
 	protected $searchableFields = array();
 	protected $section;
 	protected $settings;
+
+	private $sortedField;
 	
 	public function __construct()
 	{
@@ -158,6 +160,19 @@ class AdminController extends \Controller {
 		));
 	}
 
+	protected function prepareSorting()
+	{
+		$this->sortedField = \Input::get('sort', $this->defaultSortField);
+
+		// Sort foreign table's field
+		if (strpos($this->sortedField, '->') !== false && count(explode('->', $this->sortedField) == 2))
+		{
+			list($relationName, $this->sortedField) = explode('->', $this->sortedField);
+			$relationModel = $this->model->first()->{$relationName};
+			$this->model = $this->model->join($relationModel->getTable(), $this->model->getTable().'.'.$relationName.'_id', '=', $relationModel->getTable().'.id');
+		}
+	}
+
 	public function postIndex()
 	{
 		switch (\Input::get('list-action'))
@@ -219,22 +234,16 @@ class AdminController extends \Controller {
 
 	protected function handleBasicActions()
 	{
-		foreach (array_keys($this->listFilters) as $listFilter)
-		{
-			if (\Input::get($listFilter))
-				$this->model = $this->model->where($listFilter, \Input::get($listFilter));
-		}
+		$this->prepareSorting();
+		$this->handleListFilters();
+		$this->handleSearch();
+		$this->model = $this->model->orderBy($this->sortedField, \Input::get('sort_type', $this->defaultSortType));
 
-		// Handle searching
-		$this->model = $this->handleSearch($this->model, $this->searchableFields);
-		
-		// Sorting and pagination
-		$this->model = $this->model
-			->orderBy(\Input::get('sort', $this->defaultSortField), \Input::get('sort_type', $this->defaultSortType))
-			->paginate($this->getRowsPerPage());
+		// Pagination
+		$this->model = $this->model->paginate($this->getRowsPerPage());
 		
 		// By default, handle if $rows is empty
-		$this->handleEmptyModel($this->model);
+		$this->handleEmptyModel();
 	}
 
 	protected function handleInsert($model)
@@ -259,6 +268,15 @@ class AdminController extends \Controller {
 		}
 
 		return $status;
+	}
+
+	protected function handleListFilters()
+	{
+		foreach (array_keys($this->listFilters) as $listFilter)
+		{
+			if (\Input::get($listFilter))
+				$this->model = $this->model->where($listFilter, \Input::get($listFilter));
+		}
 	}
 
 	protected function handleMultipleRowDeletion($model)
@@ -290,14 +308,14 @@ class AdminController extends \Controller {
 		$this->createMessage($message, $message_type);
 	}
 	
-	protected function handleEmptyModel($model)
+	protected function handleEmptyModel()
 	{
 		if (\Session::get('message'))
 		{
 			return false;
 		}
 		
-		if ($model->count() == 0)
+		if ($this->model->count() == 0)
 		{
 			$msg = 'No data found';
 			$search = \Input::get('search');
@@ -309,21 +327,23 @@ class AdminController extends \Controller {
 		}
 	}
 	
-	protected function handleSearch($model, $involvedFields = array())
+	protected function handleSearch()
 	{
 		$term = \Input::get('search');
 		if ($term)
 		{
-			$model = $model->where(function($model) use ($involvedFields, $term)
+			$model = $this->model;
+			$searchableFields = $this->searchableFields;
+			$model = $model->where(function($model) use ($searchableFields, $term)
 			{
-				foreach ($involvedFields as $field)
+				foreach ($searchableFields as $field)
 				{
 					$model = $model->orWhere($field, 'LIKE', '%'.$term.'%');
 				}
 			});
+
+			$this->model = $model;
 		}
-		
-		return $model;
 	}
 
 	protected function handleUpdate($model)

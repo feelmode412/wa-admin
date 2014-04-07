@@ -28,8 +28,26 @@ class RoleController extends \Webarq\Admin\AdminController {
 
 	public function postAddedit()
 	{
-		$this->inputs = array_keys($this->fieldTitles);
-		return parent::postAddedit();
+		$this->processAddEditPost();
+
+		if ($this->addEditStatus && $this->row->id > 1)
+		{
+			if (\Input::get('id'))
+			{
+				$menu = new Role\Menu();
+				$menu->whereAdminRoleId($this->id)->delete();
+			}
+			
+			foreach (\Input::get('item_ids', array()) as $itemId)
+			{
+				$menu = new Role\Menu();
+				$menu->admin_role_id = $this->row->id;
+				$menu->item_id = $itemId;
+				$menu->save();
+			}
+		}
+		
+		return $this->processAddEditStatus();
 	}
 
 }

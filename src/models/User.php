@@ -2,6 +2,7 @@
 
 class User extends \Eloquent {
 
+	public $timestamps = false;
 	protected $table = 'admins';
 
 	public function role()

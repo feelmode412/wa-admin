@@ -9,8 +9,10 @@ class AdminController extends \Controller {
 	protected $disabledSortFields = array();
 	protected $disabledActions = array(); // array('addNew', 'delete', 'search')
 	protected $fieldTitles = array();
+	protected $idToDelete;
 	protected $inputs = array();
 	protected $layout = 'admin::layouts.master';
+	protected $listCheckedIds = array();
 	protected $listFilters = array();
 	protected $model;
 	protected $pageTitle;
@@ -137,7 +139,10 @@ class AdminController extends \Controller {
 
 	public function getDelete()
 	{
-		$row = $this->model->find(\Input::get('id'));
+		if ( ! $this->idToDelete)
+			$this->idToDelete = \Input::get('id');
+
+		$row = $this->model->find($this->idToDelete);
 		$this->handleDelete($row);
 		
 		return $this->redirect($this->section);
@@ -169,16 +174,23 @@ class AdminController extends \Controller {
 		{
 			list($relationName, $this->sortedField) = explode('->', $this->sortedField);
 			$relationModel = $this->model->first()->{$relationName};
-			$this->model = $this->model->join($relationModel->getTable(), $this->model->getTable().'.'.$relationName.'_id', '=', $relationModel->getTable().'.id');
+			$this->model = $this->model
+				->join($relationModel->getTable(), $this->model->getTable().'.'.$relationName.'_id', '=', $relationModel->getTable().'.id')
+
+				// Don't let "id" from foreign tables replaces our "id"
+				->select($this->model->getTable().'.*');
 		}
 	}
 
 	public function postIndex()
 	{
+		if ( ! $this->listCheckedIds)
+			$this->listCheckedIds = array_keys(\Input::get('list-check'));
+
 		switch (\Input::get('list-action'))
 		{
 			case 'delete':
-				$this->model = $this->model->whereIn('id', array_keys(\Input::get('list-check')))->get();
+				$this->model = $this->model->whereIn('id', $this->listCheckedIds)->get();
 				$this->handleMultipleRowDeletion($this->model);
 				break;
 		}

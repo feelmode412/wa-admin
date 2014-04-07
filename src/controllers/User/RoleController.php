@@ -11,7 +11,7 @@ class RoleController extends \Webarq\Admin\AdminController {
 		$this->activeMainMenu = 'system';
 		$this->breadcrumbs = array(
 			'System &amp; Utilities' => '#',
-			'Administrators' => 'administrator',
+			'Administrators' => admin_url('user'),
 			$this->pageTitle => admin_url($this->section)
 		);
 

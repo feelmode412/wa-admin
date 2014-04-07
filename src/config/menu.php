@@ -7,7 +7,7 @@ return array(
 		'subs' => array(
 			'system.administrator' => array(
 				'title' => 'Administrators',
-				'route' => 'administrator',
+				'route' => 'user',
 				'subs' => array(
 					'system.administrator.admin' => array(
 						'title' => 'Administrators',

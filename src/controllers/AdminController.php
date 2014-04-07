@@ -2,6 +2,7 @@
 class AdminController extends \Controller {
 	
 	protected $activeMainMenu;
+	protected $addEditStatus = false;
 	protected $breadcrumbs;
 	protected $customInputs = array();
 	protected $defaultSortField;
@@ -9,6 +10,7 @@ class AdminController extends \Controller {
 	protected $disabledSortFields = array();
 	protected $disabledActions = array(); // array('addNew', 'delete', 'search')
 	protected $fieldTitles = array();
+	protected $id;
 	protected $idToDelete;
 	protected $inputs = array();
 	protected $layout = 'admin::layouts.master';
@@ -16,6 +18,7 @@ class AdminController extends \Controller {
 	protected $listFilters = array();
 	protected $model;
 	protected $pageTitle;
+	protected $row;
 	protected $searchableFields = array();
 	protected $section;
 	protected $settings;
@@ -148,6 +151,25 @@ class AdminController extends \Controller {
 		return $this->redirect($this->section);
 	}
 
+	protected function processAddEditStatus()
+	{
+		\Session::put('addMore', (bool) \Input::get('add_more'));
+		if ( ! $this->addEditStatus)
+		{
+			$url = $this->section.'/addedit?id='.$id;
+		}
+		elseif (\Session::get('addMore'))
+		{
+			$url = $this->section.'/addedit';	
+		}
+		else
+		{
+			$url = $this->section;
+		}
+		
+		return $this->redirect($url);
+	}
+
 	protected function handleIndexLayout()
 	{
 		// Breadcrumbs
@@ -200,8 +222,14 @@ class AdminController extends \Controller {
 
 	public function postAddedit()
 	{
-		$id = \Input::get('id');
-		$row = ($id) ? $this->model->find($id) : $this->model;
+		$this->processAddEditPost();
+		return $this->processAddEditStatus();
+	}
+
+	protected function processAddEditPost()
+	{
+		$this->id = \Input::get('id');
+		$row = ($this->id) ? $this->model->find($this->id) : $this->model;
 
 		$inputs = $this->inputs;
 
@@ -221,27 +249,12 @@ class AdminController extends \Controller {
 		{
 			$row->{$fieldName} = $fieldValue;
 		}
+
+		$this->row = $row;
 		
-		$status = ($id)
+		$this->addEditStatus = ($this->id)
 			? $this->handleUpdate($row)
 			: $this->handleInsert($row);
-
-		\Session::put('addMore', (bool) \Input::get('add_more'));
-
-		if ( ! $status)
-		{
-			$url = $this->section.'/addedit?id='.$id;
-		}
-		elseif (\Session::get('addMore'))
-		{
-			$url = $this->section.'/addedit';	
-		}
-		else
-		{
-			$url = $this->section;
-		}
-		
-		return $this->redirect($url);
 	}
 
 	protected function handleBasicActions()

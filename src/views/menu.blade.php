@@ -1,14 +1,17 @@
 <div id="app_navigation">
 	<ul>
 		@foreach (Config::get('admin::menu') as $id => $values)
+			<?php if ( ! in_array($id, $menuItemIds)): continue; endif ?>
 			<li>
 				<a href="{{ admin_url($values['route']) }}" class="{{ ($activeMainMenu === $id) ? 'active' : null }}">
-					<img src="{{ asset('packages/webarq/admin') }}/images/icon/{{ $values['img'] }}" width="12" height="10" alt="" /><span>{{ $values['title'] }}</span>
+					<img src="{{ asset('packages/webarq/admin') }}/images/icon/{{ $values['img'] }}" width="12" height="10" alt="" />
+					<span>{{ $values['title'] }}</span>
 				</a>
 				@if (isset($values['subs']))
 					<ul>
 						@yield($i = 1)
 						@foreach ($values['subs'] as $id2 => $values2)
+							<?php if ( ! in_array($id2, $menuItemIds)): continue; endif ?>
 							<li class="{{ ($i == count($values['subs'])) ? 'last' : null }}">
 								<a href="{{ admin_url($values2['route']) }}">{{ $values2['title'] }}</a>
 								@if (isset($values2['subs']))
@@ -16,6 +19,7 @@
 									<ul>
 										@yield($j = 1)
 										@foreach ($values2['subs'] as $id3 => $values3)
+											<?php if ( ! in_array($id3, $menuItemIds)): continue; endif ?>
 											<li class="{{ ($j == count($values2['subs'])) ? 'last' : null }}">
 												<a href="{{ admin_url($values3['route']) }}">{{ $values3['title'] }}</a>
 												@if (isset($values3['subs']))

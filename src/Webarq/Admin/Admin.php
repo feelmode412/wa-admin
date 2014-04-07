@@ -115,6 +115,32 @@ class Admin {
 		return $fieldValue;
 	}
 
+	public function getMenuItems()
+	{
+		$menu = \Config::get('admin::menu');
+		$items = array();
+		foreach ($menu as $level1Key => $level1Value)
+		{
+			$items[$level1Key] = $level1Value['title'];
+			if ( ! isset($level1Value['subs']))
+				continue;
+
+			foreach ($level1Value['subs'] as $level2Key => $level2Value)
+			{
+				$items[$level2Key] = $level1Value['title'].' -> '.$level2Value['title'];
+				if ( ! isset($level2Value['subs']))
+					continue;
+
+				foreach ($level2Value['subs'] as $level3Key => $level3Value)
+				{
+					$items[$level3Key] = $level1Value['title'].' -> '.$level2Value['title'].' -> '.$level3Value['title'];
+				}
+			}
+		}
+
+		return $items;
+	}
+
 	public function getUrlPrefix()
 	{
 		return \Config::get('admin::admin.urlPrefix');

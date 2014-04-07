@@ -405,10 +405,19 @@ class AdminController extends \Controller {
 	{
 		if ( ! is_null($this->layout))
 		{
+			if (\Auth::check())
+			{
+				$role = \Auth::user()->admin->role;
+				$menuItemIds = ($role->id == 1)
+					? array_keys(\Admin::getMenuItems())
+					: $role->menu->lists('item_id', 'id');
+			}
+			
 			$this->layout = \View::make($this->layout, array(
 				'isLoginPage' => false,
 				'menu'        => \View::make('admin::menu', array(
 					'activeMainMenu' => $this->activeMainMenu,
+					'menuItemIds' => (isset($menuItemIds)) ? $menuItemIds : array(),
 				)),
 				'message'     => \Session::get('message'),
 				'pageTitle'   => $this->pageTitle,

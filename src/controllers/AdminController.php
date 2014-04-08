@@ -421,9 +421,7 @@ class AdminController extends \Controller {
 			if (\Auth::check())
 			{
 				$role = \Auth::user()->admin->role;
-				$menuItemIds = ($role->id == 1)
-					? array_keys(\Admin::getMenuItems())
-					: $role->menu->lists('item_id', 'id');
+				$menuItemIds = ($role->id == 1) ? array_keys(\Admin::getMenuItems()) : $role->menu->lists('item_id', 'id');
 			}
 			
 			$this->layout = \View::make($this->layout, array(

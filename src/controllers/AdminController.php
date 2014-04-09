@@ -29,10 +29,24 @@ class AdminController extends \Controller {
 	{
 		$this->beforeFilter(function()
 		{
-			if ((\Auth::guest() || ! \Auth::user()->admin) && \Request::segment(2) !== 'auth')
+			if (\Request::segment(2) !== 'auth')
 			{
 				$admin = new Admin();
-				return \Redirect::to($admin->getUrlPrefix().'/auth/login');
+				$adminUrlPrefix = $admin->getUrlPrefix();
+
+				if (\Auth::guest() || ! \Auth::user()->admin)
+					return \Redirect::to($adminUrlPrefix.'/auth/login');
+
+				if (\Auth::user()->admin->id > 1)
+				{
+					$currentRoute = \Route::getCurrentRoute()->getPath();
+					$currentRoute = str_replace('/'.$adminUrlPrefix.'/', '', $currentRoute); // Remove '/admin-cp/'
+					$currentRoute = str_replace('/'.$adminUrlPrefix, '', $currentRoute); // Remove '/admin-cp'
+
+					$roleRoutes = \Auth::user()->admin->role->routes->lists('route', 'id');
+					if ($currentRoute && ! in_array($currentRoute, $roleRoutes))
+						\App::abort(401, 'You are not authorized.');
+				}
 			}
 		});
 
@@ -91,7 +105,19 @@ class AdminController extends \Controller {
 	{
 		if ( ! \Request::segment(2)) // Admin Panel's landing
 		{
-			return $this->redirect(\Config::get('admin::admin.landingSection'));	
+			if (\Auth::user()->admin->id == 1)
+			{
+				return $this->redirect(\Config::get('admin::admin.landingSection'));
+			}
+			else
+			{
+				$roleId = \Auth::user()->admin->role->id;
+
+				// Get first route with no # as prefix
+				$route = User\Role\Route::whereAdminRoleId($roleId)->where('route', 'NOT LIKE', '%#%')->first()->route;
+
+				return $this->redirect($route);
+			}
 		}
 		
 		$this->handleBasicActions();
@@ -421,7 +447,7 @@ class AdminController extends \Controller {
 			if (\Auth::check())
 			{
 				$role = \Auth::user()->admin->role;
-				$menuRoutes = ($role->id == 1) ? array_keys(\Admin::getMenuRoutes()) : $role->menu->lists('route', 'id');
+				$menuRoutes = ($role->id == 1) ? array_keys(\Admin::getMenuRoutes()) : $role->routes->lists('route', 'id');
 			}
 			
 			$this->layout = \View::make($this->layout, array(

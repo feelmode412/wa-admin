@@ -11,10 +11,10 @@
 		<td style="vertical-align: top">Menu Access</td>
 		<td style="vertical-align: top">:</td>
 		<td>
-			<?php $currentItems = \Webarq\Admin\User\Role\Menu::whereAdminRoleId(Input::get('id'))->lists('item_id', 'id') ?>
-			@foreach (Admin::getMenuItems() as $id => $name)
+			<?php $currentRoutes = \Webarq\Admin\User\Role\Route::whereAdminRoleId(Input::get('id'))->lists('route', 'id') ?>
+			@foreach (Admin::getMenuRoutes() as $route => $name)
 				<div>
-					{{ Form::checkbox('item_ids[]', $id, in_array($id, $currentItems), array('style' => 'width: 20px')).'&nbsp;'.$name }}
+					{{ Form::checkbox('routes[]', $route, in_array($route, $currentRoutes), array('style' => 'width: 20px')).'&nbsp;'.$name }}
 				<div/><br/>
 			@endforeach
 		</td>

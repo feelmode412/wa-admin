@@ -34,16 +34,16 @@ class RoleController extends \Webarq\Admin\AdminController {
 		{
 			if (\Input::get('id'))
 			{
-				$menu = new Role\Menu();
-				$menu->whereAdminRoleId($this->id)->delete();
+				$route = new Role\Route();
+				$route->whereAdminRoleId($this->id)->delete();
 			}
-			
-			foreach (\Input::get('item_ids', array()) as $itemId)
+
+			foreach (\Input::get('routes', array()) as $route)
 			{
-				$menu = new Role\Menu();
-				$menu->admin_role_id = $this->row->id;
-				$menu->item_id = $itemId;
-				$menu->save();
+				$roleRoute = new Role\Route();
+				$roleRoute->admin_role_id = $this->row->id;
+				$roleRoute->route = $route;
+				$roleRoute->save();
 			}
 		}
 		

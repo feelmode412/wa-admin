@@ -3,11 +3,11 @@ return array(
 	'system' => array(
 		'title' => 'System & Utilities',
 		'img' => 'icon-nav-08.png',
-		'route' => '#',
+		'route' => '#system',
 		'subs' => array(
 			'system.administrator' => array(
 				'title' => 'Administrators',
-				'route' => 'user',
+				'route' => '#system.administrator',
 				'subs' => array(
 					'system.administrator.admin' => array(
 						'title' => 'Administrators',

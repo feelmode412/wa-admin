@@ -48,20 +48,20 @@ INSERT INTO `admin_roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 /*!40000 ALTER TABLE `admin_roles` ENABLE KEYS */;
 
 
--- Dumping structure for table webarq-site.admin_role_menu
-DROP TABLE IF EXISTS `admin_role_menu`;
-CREATE TABLE IF NOT EXISTS `admin_role_menu` (
+-- Dumping structure for table webarq-site.admin_role_routes
+DROP TABLE IF EXISTS `admin_role_routes`;
+CREATE TABLE IF NOT EXISTS `admin_role_routes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `admin_role_id` int(10) unsigned NOT NULL,
-  `item_id` varchar(255) NOT NULL,
+  `route` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_role_id_item_id` (`admin_role_id`,`item_id`),
+  UNIQUE KEY `admin_role_id_item_id` (`admin_role_id`,`route`),
   CONSTRAINT `FK_admin_role_menu_admin_roles` FOREIGN KEY (`admin_role_id`) REFERENCES `admin_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table webarq-site.admin_role_menu: ~0 rows (approximately)
-/*!40000 ALTER TABLE `admin_role_menu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin_role_menu` ENABLE KEYS */;
+-- Dumping data for table webarq-site.admin_role_routes: ~0 rows (approximately)
+/*!40000 ALTER TABLE `admin_role_routes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin_role_routes` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

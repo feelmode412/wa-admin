@@ -1,8 +1,8 @@
 <?php namespace Webarq\Admin\User\Role;
 
-class Menu extends \Eloquent {
+class Route extends \Eloquent {
 	
-	protected $table = 'admin_role_menu';
+	protected $table = 'admin_role_routes';
 	public $timestamps = false;
 
 }

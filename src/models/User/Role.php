@@ -6,7 +6,7 @@ class Role extends \Eloquent {
 
 	public function menu()
 	{
-		return $this->hasMany('\Webarq\Admin\User\Role\Menu', 'admin_role_id');
+		return $this->hasMany('\Webarq\Admin\User\Role\Route', 'admin_role_id');
 	}
 
 }

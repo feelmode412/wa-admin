@@ -182,7 +182,7 @@ class AdminController extends \Controller {
 		\Session::put('addMore', (bool) \Input::get('add_more'));
 		if ( ! $this->addEditStatus)
 		{
-			$url = $this->section.'/addedit?id='.$id;
+			$url = $this->section.'/addedit?id='.$this->id;
 		}
 		elseif (\Session::get('addMore'))
 		{

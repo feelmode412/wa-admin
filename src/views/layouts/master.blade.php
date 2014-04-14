@@ -32,7 +32,7 @@
 		</div>
 		<div id="app_shorcut">
 			<div>
-				<img src="{{ asset('packages/webarq/admin') }}/images/general/logo.png" alt="{{ $websiteName }}" class="logo"/>
+				<img src="{{ asset('admin/images/logo.png') }}" alt="{{ $websiteName }}" class="logo"/>
 			</div>
 		</div>
 		

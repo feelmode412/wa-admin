@@ -136,6 +136,7 @@ class Admin {
 			}
 		}
 
+		sort($items);
 		return $items;
 	}
 

@@ -250,7 +250,7 @@ table.form_input td{
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #efefef;
-	vertical-align: middle;
+	vertical-align: top;
 }
 
 table.form_input td h3{
@@ -259,8 +259,6 @@ table.form_input td h3{
 	color: #333;
 	margin-bottom: 10px;
 }
-
-table.form_input td.top{ vertical-align: top; }
 
 table.login{
 	width: 260px;

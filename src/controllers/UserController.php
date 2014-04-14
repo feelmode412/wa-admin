@@ -43,10 +43,24 @@ class UserController extends AdminController {
 	public function postAddedit()
 	{
 		$id = \Input::get('id');
+		if ( ! $id && ! \Input::get('password')) // Add
+		{
+			$this->createMessage(__('Password must be filled.'), $type = 'error', true);
+			return \Redirect::back();
+		}
+		
+		if (\Input::get('password_confirmation') !== \Input::get('password')) // Add & Edit
+		{
+			$this->createMessage(__('Your confirmation password did not match the password.'), $type = 'error', true);
+			return \Redirect::back();
+		}
+
 		$user = ($id) ? $this->model->find($id)->user : new \Webarq\Site\User();
 		$user->username = \Input::get('username');
 		$user->email = \Input::get('email');
-		$user->password = \Hash::make('webarq');
+		if (\Input::get('password'))
+			$user->password = \Hash::make(\Input::get('password'));
+
 		$status = ($id)
 			? $this->handleUpdate($user)
 			: $this->handleInsert($user);

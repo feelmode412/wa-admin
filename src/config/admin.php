@@ -1,4 +1,3 @@
-
 <?php
 return array(
 	'urlPrefix' => 'admin-cp',

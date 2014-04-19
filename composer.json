@@ -15,7 +15,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:webarq/site.git"
+            "url": "git@128.199.208.157:/opt/git/webarq/site.git"
         }
     ],
     "require": {

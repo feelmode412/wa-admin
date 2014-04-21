@@ -39,12 +39,8 @@ class AdminController extends \Controller {
 
 				if (\Auth::user()->admin->id > 1)
 				{
-					$currentRoute = \Route::getCurrentRoute()->getPath();
-					$currentRoute = str_replace('/'.$adminUrlPrefix.'/', '', $currentRoute); // Remove '/admin-cp/'
-					$currentRoute = str_replace('/'.$adminUrlPrefix, '', $currentRoute); // Remove '/admin-cp'
-
 					$roleRoutes = \Auth::user()->admin->role->routes->lists('route', 'id');
-					if ($currentRoute && ! in_array($currentRoute, $roleRoutes))
+					if ($this->section && ! in_array($this->section, $roleRoutes))
 						\App::abort(401, 'You are not authorized.');
 				}
 			}

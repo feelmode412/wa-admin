@@ -10,6 +10,18 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Dumping data for table webarq-site.settings: ~1 rows (approximately)
+/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+INSERT INTO `settings` (`id`, `code`, `type`, `value`) VALUES
+  (1, 'rows_per_page', 'admin_panel', '10');
+/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+
+-- Dumping data for table webarq-site.users: ~1 rows (approximately)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
+  (1, 'admin', 'info@webarq.com', '$2y$08$hb3/kWLXQ3JfR6dOUbrkk.Bm0Wy6sElIhYp89o0OgxoA3ORLObwSa', NULL, NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
 -- Dumping structure for table webarq-site.admins
 DROP TABLE IF EXISTS `admins`;
 CREATE TABLE IF NOT EXISTS `admins` (

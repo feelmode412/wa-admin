@@ -26,6 +26,7 @@
     "autoload": {
         "classmap": [
             "src/controllers",
+            "src/facades",
             "src/migrations",
             "src/models"
         ],

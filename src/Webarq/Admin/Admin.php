@@ -77,7 +77,7 @@ class Admin {
 			$fieldValue = $row->{$exploded[0]};
 			unset($exploded[0]);
 			foreach ($exploded as $val)
-				$fieldValue = $fieldValue->{$val};
+				$fieldValue = @$fieldValue->{$val};
 		}
 		else
 		{

@@ -49,6 +49,11 @@ class AdminController extends \Controller {
 		$this->setting = new \Webarq\Site\Setting;
 	}
 
+	protected function addListFilter($model, $foreignKey, $foreignName, $label)
+	{
+		$this->listFilters[$foreignKey] = $this->createListFilter($model, $foreignKey, $foreignName, $label);
+	}
+
 	protected function createFailedInsertUpdateMessage()
 	{
 		$this->createMessage('Adding / updating data failed. Please make sure:<br/>1. Any of the required fields was not left empty<br/>2. The new data would not make duplication', 'error');

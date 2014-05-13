@@ -103,7 +103,7 @@ class Admin {
 		}
 		elseif (in_array($fieldName, $this->yesNoFields))
 		{
-			$fieldValue = ($fieldValue == 'Y' || $fieldValue == 1) ? __('Yes') : __('No');
+			$fieldValue = ($fieldValue === 'Y' || $fieldValue == 1) ? __('Yes') : __('No');
 		}
 		elseif (in_array($fieldName, array_keys($this->customYesNoFields)))
 		{

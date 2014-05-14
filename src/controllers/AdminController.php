@@ -23,6 +23,7 @@ class AdminController extends \Controller {
 	protected $section;
 	protected $settings;
 
+	private $additionalMessage;
 	private $sortedField;
 	
 	public function __construct()
@@ -56,7 +57,14 @@ class AdminController extends \Controller {
 
 	protected function createFailedInsertUpdateMessage()
 	{
-		$this->createMessage('Adding / updating data failed. Please make sure:<br/>1. Any of the required fields was not left empty<br/>2. The new data would not make duplication', 'error');
+		$msg = 'Adding / updating data failed. Please make sure:<br/>1. Any of the required fields was not left empty<br/>2. The new data would not make duplication';
+
+		if (\App::environment() !== 'production' && $this->additionalMessage)
+		{
+			$msg .= '<br/><br/><i>'.$this->additionalMessage.'</i>';
+		}
+
+		$this->createMessage($msg, 'error');
 	}
 
 	public function createListFilter($model, $foreignKey, $foreignName, $label)
@@ -308,6 +316,9 @@ class AdminController extends \Controller {
 		catch (\Exception $e)
 		{
 			$status = false;
+
+			// For non-production
+			$this->additionalMessage = $e->getMessage();
 		}
 
 		if ($status)

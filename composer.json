@@ -34,5 +34,13 @@
             "Webarq\\Admin\\": "src/"
         }
     },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan asset:publish webarq/admin"
+        ],
+        "post-update-cmd": [
+            "php artisan asset:publish webarq/admin"
+        ]
+    },
     "minimum-stability": "dev"
 }

@@ -52,7 +52,7 @@ See also: [WEBARQ\Presence](http://128.199.208.157/gitlist/index.php/webarq/pres
 
 ### Merge Schemas
 
-Merge the following 2 schema to your MySQL database, in sequence:
+Merge the following 2 schemas to your MySQL database, in sequence:
 
 - `/vendor/webarq/site/schema.sql`
 - `/vendor/webarq/admin/schema.sql`

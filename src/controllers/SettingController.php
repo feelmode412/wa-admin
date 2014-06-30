@@ -1,6 +1,6 @@
 <?php namespace Webarq\Admin;
 
-class SettingController extends AdminController {
+class SettingController extends Controller {
 	
 	public function __construct()
 	{

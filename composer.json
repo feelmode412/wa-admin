@@ -21,7 +21,7 @@
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.0.*",
-        "webarq/site": "v0.1"
+        "webarq/site": "v0.5.0"
     },
     "autoload": {
         "classmap": [

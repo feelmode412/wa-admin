@@ -17,7 +17,7 @@
 // See http://kcfinder.sunhater.com/install for setting descriptions
 
 $uploadUrl = str_replace('browse.php', '', $_SERVER['PHP_SELF']);
-$uploadUrl = str_replace('admin', 'contents', $uploadUrl);
+$uploadUrl = str_replace('packages/webarq/admin', 'contents', $uploadUrl);
 $_CONFIG = array(
 
     'disabled' => false,
@@ -28,7 +28,7 @@ $_CONFIG = array(
     'theme' => "oxygen",
 
     'uploadURL' => $uploadUrl,
-    'uploadDir' => '../../contents/kcfinder/',
+    'uploadDir' => '../../../../contents/kcfinder/',
 
     'dirPerms' => 0755,
     'filePerms' => 0644,

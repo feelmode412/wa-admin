@@ -1,6 +1,5 @@
 {
     "name": "webarq/admin",
-    "version": "dev-master",
     "dist": {
         "url": "https://bitbucket.org/webarq/admin.git",
         "type": "git"

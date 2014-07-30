@@ -19,10 +19,14 @@ return array(
 					),
 				),
 			),
+			'email.template' => array(
+				'title' => 'Email Templates',
+				'route' => 'email/template',
+			),
 			'setting' => array(
 				'title' => 'Settings',
 				'route' => 'setting',
-			),			
+			),
 		),
 	),	
 );

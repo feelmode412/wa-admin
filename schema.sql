@@ -12,8 +12,8 @@
 
 -- Dumping data for table webarq-site.settings: ~1 rows (approximately)
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` (`id`, `code`, `type`, `value`) VALUES
-  (1, 'rows_per_page', 'admin_panel', '10');
+INSERT INTO `settings` (`code`, `type`, `value`) VALUES
+  ('rows_per_page', 'admin_panel', '10');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 
 -- Dumping data for table webarq-site.users: ~1 rows (approximately)

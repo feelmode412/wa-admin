@@ -1,6 +1,6 @@
 <?php namespace Webarq\Admin\User;
 
-class RoleController extends \Webarq\Admin\AdminController {
+class RoleController extends \Webarq\Admin\Controller {
 
 	public function __construct()
 	{

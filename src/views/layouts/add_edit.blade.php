@@ -8,7 +8,7 @@
 			<td>&nbsp;</td>
 		</tr>
 		
-		@yield('content')
+		{{ $content }}
 		
 		<tr>
 			<td><i>* = Required fields</i></td>

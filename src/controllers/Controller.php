@@ -145,10 +145,12 @@ class Controller extends \Controller {
 		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';
 		$this->layout->breadcrumbs = $this->breadcrumbs;
 		
-		$this->layout->content = \View::make($this->viewPath.'.add_edit', array(
+		$content = \View::make($this->viewPath.'.add_edit', array(
 			'row' => (\Input::get('id')) ? $this->model->find(\Input::get('id')) : null,
 			'section' => $this->section,
 		));
+
+		$this->layout->content = \View::make('admin::layouts.add_edit', array('content' => $content));
 	}
 
 	protected function handleDelete($model)

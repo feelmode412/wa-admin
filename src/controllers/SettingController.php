@@ -1,35 +1,45 @@
 <?php namespace Webarq\Admin;
 
+use Webarq\Site as Site;
+
 class SettingController extends Controller {
-	
+
 	public function __construct()
 	{
 		parent::__construct();
-
-		// General
-		$this->activeMainMenu = 'system';
-		$this->pageTitle = 'Settings';
-		$this->model = new \Webarq\Site\Setting;
+		$this->model = new Site\Setting();
 		$this->section = 'setting';
+		$this->pageTitle = 'Settings';
+		$this->activeMainMenu = 'system';
 		$this->breadcrumbs = array(
 			'System &amp; Utilities' => '#',
 			$this->pageTitle => admin_url($this->section)
 		);
-		$this->viewPath = 'admin::setting';
+	}
 
-		// For list / index
-		$this->defaultSortField = 'type';
+	public function getIndex()
+	{
 		$this->disabledActions = array('addNew', 'delete');
-		$this->disabledSortFields = array('value');
+		$this->defaultSortField = 'type';
 		$this->fieldTitles = array(
 			'code' => 'Code',
 			'type' => 'Type',
 			'value' => 'Value',
 		);
-		$this->searchableFields = array_keys($this->fieldTitles);
+		
+		return parent::getIndex();
+	}
 
-		// For add / edit
+	public function getAddedit()
+	{
+		$this->viewPath = 'admin::setting';
+		return parent::getAddedit();
+	}
+
+	public function postAddedit()
+	{
 		$this->inputs = array('value');
+		return parent::postAddedit();
 	}
 
 }

@@ -1,12 +1,10 @@
-@extends('admin::layouts.add_edit')
-@section('content')
-	<tr>
-		<td>Name *</td>
-		<td>:</td>
-		<td>{{ Form::text('name', @$row->name, array('class' => 'required')) }}</td>
-	</tr>
+<tr>
+	<td>Name *</td>
+	<td>:</td>
+	<td>{{ Form::text('name', @$row->name, array('class' => 'required')) }}</td>
+</tr>
 
-	@if ( ! Input::get('id') || Input::get('id') > 1)
+@if ( ! Input::get('id') || Input::get('id') > 1)
 	<tr>
 		<td style="vertical-align: top">Menu Access</td>
 		<td style="vertical-align: top">:</td>
@@ -19,6 +17,4 @@
 			@endforeach
 		</td>
 	</tr>
-	@endif
-
-@stop
+@endif

@@ -11,10 +11,6 @@ class SettingController extends Controller {
 		$this->section = 'setting';
 		$this->pageTitle = 'Settings';
 		$this->activeMainMenu = 'system';
-		$this->breadcrumbs = array(
-			'System &amp; Utilities' => '#',
-			$this->pageTitle => admin_url($this->section)
-		);
 	}
 
 	public function getIndex()

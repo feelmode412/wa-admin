@@ -115,28 +115,40 @@ class Admin {
 		return $fieldValue;
 	}
 
-	public function getMenuRoutes()
+	public function getMenuArray()
 	{
 		$menu = \Config::get('admin::menu');
 		$items = array();
 		foreach ($menu as $level1Value)
 		{
-			$items[$level1Value['route']] = $level1Value['title'];
+			$items[$level1Value['route']] = array($level1Value['title']);
 			if ( ! isset($level1Value['subs'])) continue;
 
 			foreach ($level1Value['subs'] as $level2Value)
 			{
-				$items[$level2Value['route']] = $level1Value['title'].' -> '.$level2Value['title'];
+				$items[$level2Value['route']] = array($level1Value['title'], $level2Value['title']);
 				if ( ! isset($level2Value['subs'])) continue;
 
 				foreach ($level2Value['subs'] as $level3Value)
 				{
-					$items[$level3Value['route']] = $level1Value['title'].' -> '.$level2Value['title'].' -> '.$level3Value['title'];
+					$items[$level3Value['route']] = array($level1Value['title'], $level2Value['title'], $level3Value['title']);
 				}
 			}
 		}
 
 		asort($items);
+		return $items;
+	}
+
+	public function getMenuRoutes()
+	{
+		$menuArray = $this->getMenuArray();
+		$items = array();
+		foreach ($menuArray as $menu => $array)
+		{
+			$items[$menu] = implode(' -> ', $array);
+		}
+
 		return $items;
 	}
 

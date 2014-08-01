@@ -9,10 +9,6 @@ class UserController extends Controller {
 		$this->section = 'user';
 		$this->pageTitle = 'Administrators';
 		$this->activeMainMenu = 'system';
-		$this->breadcrumbs = array(
-			'System &amp; Utilities' => '#',
-			$this->pageTitle => admin_url($this->section)
-		);
 	}
 
 	public function getIndex()

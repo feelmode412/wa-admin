@@ -3,7 +3,6 @@ class Controller extends \Controller {
 	
 	protected $activeMainMenu;
 	protected $addEditStatus = false;
-	protected $breadcrumbs;
 	protected $customInputs = array();
 	protected $defaultSortField;
 	protected $defaultSortType = 'asc'; // Must be lower case
@@ -53,6 +52,23 @@ class Controller extends \Controller {
 	protected function addListFilter($model, $foreignKey, $foreignName, $label)
 	{
 		$this->listFilters[$foreignKey] = $this->createListFilter($model, $foreignKey, $foreignName, $label);
+	}
+
+	protected function createBreadcrumbs($additionalCrumbs = array())
+	{
+		$menuArray = \Admin::getMenuArray();
+		$breadcrumbs = array();
+		for ($i = 0; $i < count($menuArray[$this->section]); $i++)
+		{
+			$breadcrumbs[$menuArray[$this->section][$i]] = ($i === (count($menuArray[$this->section]) - 1))
+				? admin_url($this->section)
+				: '#';
+		}
+
+		return \View::make('admin::breadcrumbs', array(
+			'breadcrumbs' => $breadcrumbs + $additionalCrumbs,
+			//
+		));
 	}
 
 	protected function createFailedInsertUpdateMessage()
@@ -141,9 +157,7 @@ class Controller extends \Controller {
 
 	public function getAddedit()
 	{
-		// Breadcrumbs
-		$this->breadcrumbs[\Admin::getAddEditTitle()] = '#';
-		$this->layout->breadcrumbs = $this->breadcrumbs;
+		$this->layout->breadcrumbs = $this->createBreadcrumbs(array(\Admin::getAddEditTitle() => '#'));
 
 		$content = \View::make($this->viewPath.'.add_edit', array(
 			'row' => (\Input::get('id')) ? $this->model->find(\Input::get('id')) : null,
@@ -211,8 +225,7 @@ class Controller extends \Controller {
 
 	protected function handleIndexLayout()
 	{
-		// Breadcrumbs
-		$this->layout->breadcrumbs = $this->breadcrumbs;
+		$this->layout->breadcrumbs = $this->createBreadcrumbs();
 
 		$this->layout->content = \View::make('admin::list', array(
 			'defaultSortField' => $this->defaultSortField,

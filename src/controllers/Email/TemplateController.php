@@ -12,10 +12,6 @@ class TemplateController extends Admin\Controller {
 		$this->section = 'email/template';
 		$this->pageTitle = 'Email Templates';
 		$this->activeMainMenu = 'system';
-		$this->breadcrumbs = array(
-			'System &amp; Utilities' => '#',
-			$this->pageTitle => admin_url($this->section)
-		);
 	}
 
 	public function getIndex()

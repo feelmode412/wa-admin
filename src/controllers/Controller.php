@@ -314,7 +314,11 @@ class Controller extends \Controller {
 		$this->prepareSorting();
 		$this->handleListFilters();
 		$this->handleSearch();
-		$this->model = $this->model->orderBy($this->sortedField, \Input::get('sort_type', $this->defaultSortType));
+
+		if ($this->defaultSortField)
+		{
+			$this->model = $this->model->orderBy($this->sortedField, \Input::get('sort_type', $this->defaultSortType));	
+		}
 
 		// Pagination
 		$this->model = $this->model->paginate($this->getRowsPerPage());

@@ -37,7 +37,7 @@ class Controller extends \Controller {
 				if (\Auth::guest() || ! \Auth::user()->admin)
 					return \Redirect::to($adminUrlPrefix.'/auth/login');
 
-				if (\Auth::user()->admin->id > 1)
+				if (\Auth::user()->admin->role_id > 1)
 				{
 					$roleRoutes = \Auth::user()->admin->role->routes->lists('route', 'id');
 					if ($this->section && ! in_array($this->section, $roleRoutes))
@@ -130,7 +130,7 @@ class Controller extends \Controller {
 	{
 		if ( ! \Request::segment(2)) // Admin Panel's landing
 		{
-			if (\Auth::user()->admin->id == 1)
+			if (\Auth::user()->admin->role_id == 1)
 			{
 				return $this->redirect(\Config::get('admin::admin.landingSection'));
 			}

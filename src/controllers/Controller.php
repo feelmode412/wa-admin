@@ -27,7 +27,8 @@ class Controller extends \Controller {
 	
 	public function __construct()
 	{
-		$this->beforeFilter(function()
+	    $section = $this->section;
+		$this->beforeFilter(function() use ($section)
 		{
 			if (\Request::segment(2) !== 'auth')
 			{
@@ -40,7 +41,7 @@ class Controller extends \Controller {
 				if (\Auth::user()->admin->role_id > 1)
 				{
 					$roleRoutes = \Auth::user()->admin->role->routes->lists('route', 'id');
-					if ($this->section && ! in_array($this->section, $roleRoutes))
+					if ($section && ! in_array($section, $roleRoutes))
 						\App::abort(401, 'You are not authorized.');
 				}
 			}

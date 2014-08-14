@@ -42,12 +42,12 @@ class Admin {
 
 	public function formatDate($rowValue)
 	{
-		return date('M j, Y', strtotime($rowValue));
+		return ( ! $rowValue || $rowValue == '0000-00-00') ? null : date('M j, Y', strtotime($rowValue));
 	}
 
 	public function formatDateTime($rowValue)
 	{
-		return date('M j, Y H:i:s', strtotime($rowValue));
+		return ( ! $rowValue || $rowValue == '0000-00-00 00:00:00') ? null : date('M j, Y', strtotime($rowValue));
 	}
 
 	public function getAddEditTitle()

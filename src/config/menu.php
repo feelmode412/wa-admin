@@ -19,9 +19,19 @@ return array(
 					),
 				),
 			),
-			'email.template' => array(
-				'title' => 'Email Templates',
-				'route' => 'email/template',
+			'email' => array(
+				'title' => 'Email',
+				'route' => '#system.email',
+				'subs' => array(
+					'email.template' => array(
+						'title' => 'Email Templates',
+						'route' => 'email/template',
+					),
+					'email.tester' => array(
+						'title' => 'Email Tester',
+						'route' => 'email/tester',
+					),
+				),
 			),
 			'setting' => array(
 				'title' => 'Settings',

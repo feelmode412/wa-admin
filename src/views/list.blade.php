@@ -87,9 +87,9 @@
 					
 					<td align="center">{{ $i }}</td>
 
-					@foreach (array_keys($fields) as $fieldName)
-						<td>{{ Admin::getFieldValue($row, $fieldName) }}</td>
-					@endforeach
+					<?php foreach (array_keys($fields) as $fieldName): ?>
+						<td><?= View::make('admin::list.field_value', compact('row', 'fieldName')) ?></td>
+					<?php endforeach ?>
 					
 					<td align="center" width="100">
 						@foreach (Admin::getCustomRowActions() as $action)

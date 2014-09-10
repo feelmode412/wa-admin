@@ -1,0 +1,1 @@
+<?= Admin::getFieldValue($row, $fieldName) ?>

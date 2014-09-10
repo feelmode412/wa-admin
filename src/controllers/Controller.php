@@ -228,6 +228,8 @@ class Controller extends \Controller {
 	{
 		$this->layout->breadcrumbs = $this->createBreadcrumbs();
 
+		$rows = $this->model;
+		$pagination = \View::make('admin::list.pagination', compact('rows'));
 		$this->layout->content = \View::make('admin::list', array(
 			'defaultSortField' => $this->defaultSortField,
 			'defaultSortType' => $this->defaultSortType,
@@ -235,7 +237,8 @@ class Controller extends \Controller {
 			'disabledSortFields' => $this->disabledSortFields,
 			'fields' => $this->fieldTitles,
 			'filters' => $this->listFilters,
-			'rows' => $this->model,
+			'pagination' => $pagination,
+			'rows' => $rows,
 			'section' => $this->section,
 		));
 	}

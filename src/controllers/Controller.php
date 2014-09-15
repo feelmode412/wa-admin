@@ -160,6 +160,12 @@ class Controller extends \Controller {
 	{
 		$this->layout->breadcrumbs = $this->createBreadcrumbs(array(\Admin::getAddEditTitle() => '#'));
 
+		// The $viewPath can be declared without 'admin.' prefix
+		if ( ! preg_match('/^(admin\.|admin\:\:)/', $this->viewPath))
+		{
+			$this->viewPath = 'admin.'.$this->viewPath;
+		}
+
 		$content = \View::make($this->viewPath.'.add_edit', array(
 			'row' => (\Input::get('id')) ? $this->model->find(\Input::get('id')) : null,
 		));

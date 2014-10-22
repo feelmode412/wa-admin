@@ -27,26 +27,6 @@ class Controller extends \Controller {
 	
 	public function __construct()
 	{
-		$section = $this->section;
-		$this->beforeFilter(function() use ($section)
-		{
-			if (\Request::segment(2) !== 'auth')
-			{
-				$admin = new Admin();
-				$adminUrlPrefix = $admin->getUrlPrefix();
-
-				if (\Auth::guest() || ! \Auth::user()->admin)
-					return \Redirect::to($adminUrlPrefix.'/auth/login');
-
-				if (\Auth::user()->admin->role_id > 1)
-				{
-					$roleRoutes = \Auth::user()->admin->role->routes->lists('route', 'id');
-					if ($section && ! in_array($section, $roleRoutes))
-						\App::abort(401, 'You are not authorized.');
-				}
-			}
-		});
-
 		$this->setting = new \Webarq\Site\Setting;
 	}
 

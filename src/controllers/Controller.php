@@ -27,7 +27,7 @@ class Controller extends \Controller {
 	
 	public function __construct()
 	{
-	    $section = $this->section;
+		$section = $this->section;
 		$this->beforeFilter(function() use ($section)
 		{
 			if (\Request::segment(2) !== 'auth')

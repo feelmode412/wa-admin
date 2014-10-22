@@ -28,11 +28,18 @@ class AdminServiceProvider extends ServiceProvider {
 		
 		\Route::filter('admin_auth', function()
 		{
+			$admin = new Admin();
+			$urlPrefix = $admin->getUrlPrefix();
+
+			// Log out any frontend session
+			if (\Auth::check() && ! \Auth::user()->admin)
+			{
+				\Auth::logout();
+				return \Redirect::to($urlPrefix.'/auth/login');
+			}
+
 			if (\Request::segment(2) !== 'auth')
 			{
-				$admin = new Admin();
-				$urlPrefix = $admin->getUrlPrefix();
-
 				if (\Auth::guest() || ! \Auth::user()->admin)
 				{
 					return \Redirect::to($urlPrefix.'/auth/login');

@@ -1,20 +1,10 @@
 {
     "name": "webarq/admin",
-    "dist": {
-        "url": "https://bitbucket.org/webarq/admin.git",
-        "type": "git"
-    },
     "description": "",
     "authors": [
         {
             "name": "Qosdil A.",
             "email": "qosdil@gmail.com"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@git2.webarq.com:webarq/site.git"
         }
     ],
     "require": {

@@ -21,9 +21,9 @@ class Controller extends \Controller {
 	protected $searchableFields = array();
 	protected $section;
 	protected $settings;
+	protected $sortedField;
 
 	private $additionalMessage;
-	private $sortedField;
 	
 	public function __construct()
 	{

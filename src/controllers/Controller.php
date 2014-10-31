@@ -238,11 +238,15 @@ class Controller extends \Controller {
 		{
 			list($relationName, $this->sortedField) = explode('->', $this->sortedField);
 			$relationModel = $this->model->first()->{$relationName};
+
+			// Refresh the model
+			$model = $this->model->getModel();
+
 			$this->model = $this->model
-				->join($relationModel->getTable(), $this->model->getTable().'.'.$relationName.'_id', '=', $relationModel->getTable().'.id')
+				->join($relationModel->getTable(), $model->getTable().'.id', '=', $relationModel->getTable().'.'.$model->getForeignKey())
 
 				// Don't let "id" from foreign tables replaces our "id"
-				->select($this->model->getTable().'.*');
+				->select($model->getTable().'.*');
 		}
 	}
 

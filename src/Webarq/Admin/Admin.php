@@ -107,7 +107,7 @@ class Admin {
 		}
 		elseif (in_array($fieldName, array_keys($this->customYesNoFields)))
 		{
-			$fieldValue = ($fieldValue == 'Y' || $fieldValue == 1)
+			$fieldValue = ($fieldValue === 'Y' || $fieldValue == 1)
 				? $this->customYesNoFields[$fieldName][0]
 				: $this->customYesNoFields[$fieldName][1];
 		}

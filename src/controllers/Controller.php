@@ -305,10 +305,9 @@ class Controller extends \Controller {
 
 	protected function handleBasicActions()
 	{
-		$this->prepareSorting();
 		$this->handleListFilters();
 		$this->handleSearch();
-
+		$this->prepareSorting();
 		if ($this->defaultSortField)
 		{
 			$this->model = $this->model->orderBy($this->sortedField, \Input::get('sort_type', $this->defaultSortType));	

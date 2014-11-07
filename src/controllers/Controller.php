@@ -242,11 +242,25 @@ class Controller extends \Controller {
 			// Refresh the model
 			$model = $this->model->getModel();
 
-			$this->model = $this->model
-				->join($relationModel->getTable(), $model->getTable().'.id', '=', $relationModel->getTable().'.'.$model->getForeignKey())
+			// We need to check if the model is on the main table or not
+			$onMainTable = true;
+			$testModel = $this->model
+				->join($relationModel->getTable(), $model->getTable().'.id', '=', $relationModel->getTable().'.'.$model->getForeignKey());
+			try
+			{
+				$count = $testModel->count();
+			}
+			catch (\Exception $e)
+			{
+				$onMainTable = false;
+			}
 
-				// Don't let "id" from foreign tables replaces our "id"
-				->select($model->getTable().'.*');
+			$this->model = ($onMainTable)
+				? $testModel
+				: $this->model->join($relationModel->getTable(), $model->getTable().'.'.$model->getForeignKey(), '=', $relationModel->getTable().'.id');
+
+			// Don't let "id" from foreign tables replaces our "id"
+			$this->model = $this->model->select($model->getTable().'.*');
 		}
 	}
 

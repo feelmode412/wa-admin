@@ -8,9 +8,9 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.0.*",
-        "webarq/site": "1.0.x-dev"
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "webarq/site": "1.2.x-dev"
     },
     "autoload": {
         "classmap": [

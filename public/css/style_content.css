@@ -618,3 +618,19 @@ a.btn_action .tooltip span{
 	padding:5px 10px 5px 35px;
 	color:#333;
 }
+
+form.form2 ul#checkboxtree input {
+	width: 20px;
+}
+
+ul#checkboxtree li.expanded, ul#checkboxtree li.collapsed {
+	padding-left: 20px;
+}
+
+ul#checkboxtree li.expanded ul {
+	padding-left: 20px;
+}
+
+.ui-widget-daredevel-checkboxTree li span {
+	left: 5px;
+}

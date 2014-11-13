@@ -10,11 +10,37 @@
 		<td style="vertical-align: top">:</td>
 		<td>
 			<?php $currentRoutes = \Webarq\Admin\User\Role\Route::whereAdminRoleId(Input::get('id'))->lists('route', 'id') ?>
-			@foreach (Admin::getMenuRoutes() as $route => $name)
-				<div>
-					{{ Form::checkbox('routes[]', $route, in_array($route, $currentRoutes), array('style' => 'width: 20px')).'&nbsp;'.$name }}
-				<div/><br/>
-			@endforeach
+
+			<ul id="checkboxtree">
+				<?php foreach (Config::get('admin::menu') as $level1): ?>
+					
+					<li><?php echo Form::checkbox('routes[]', $level1['route'], in_array($level1['route'], $currentRoutes)) ?>
+					
+					<label><?php echo $level1['title'] ?>
+					
+					<?php if ( ! isset($level1['subs'])): continue; endif ?>
+					
+					<?php foreach ($level1['subs'] as $level2): ?>
+						<ul>
+							<li><?php echo Form::checkbox('routes[]', $level2['route'], in_array($level2['route'], $currentRoutes)) ?>
+							<label><?php echo $level2['title'] ?>
+							
+							<?php if ( ! isset($level2['subs'])): continue; endif ?>
+							
+							<?php foreach ($level2['subs'] as $level3): ?>
+								<ul>
+									<li><?php echo Form::checkbox('routes[]', $level3['route'], in_array($level3['route'], $currentRoutes)) ?>
+									<label><?php echo $level3['title'] ?>
+								</ul>
+							<?php endforeach ?>
+
+						</ul>
+					<?php endforeach ?>
+				
+				<?php endforeach ?>
+			</ul>
+			
 		</td>
 	</tr>
 @endif
+

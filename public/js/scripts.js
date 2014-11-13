@@ -114,4 +114,6 @@ $(document).ready(function() {
 		window.location = $(this).val();
 	});
 
+	$('#checkboxtree').checkboxTree();
+
 });

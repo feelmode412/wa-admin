@@ -5,6 +5,8 @@
 		<link rel="icon" type="images/x-icon" href="{{ asset('packages/webarq/admin') }}/favicon.ico"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin/checkboxtree-0.5.2/library/jquery-ui-1.8.12.custom/css/smoothness/jquery-ui-1.8.12.custom.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin/checkboxtree-0.5.2/jquery.checkboxtree.min.css') }}"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/style_content.css"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/jquery.selectBox_category.css"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/date_input.css"/>
@@ -79,6 +81,8 @@
 			};
 		</script>
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/checkboxtree-0.5.2/library/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
+		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/checkboxtree-0.5.2/jquery.checkboxtree.min.js"></script>
 		<script type="text/javascript" src="{{ asset('packages/webarq/admin') }}/js/scripts.js"></script>
 		<script type="text/javascript" src="{{ asset('admin/js/app_scripts.js') }}"></script>
 		<script type="text/javascript">

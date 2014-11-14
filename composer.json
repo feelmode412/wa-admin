@@ -7,6 +7,12 @@
             "email": "qosdil@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@git2.webarq.com:webarq/site.git"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",

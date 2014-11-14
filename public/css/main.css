@@ -292,10 +292,13 @@ body {
 }
 
 #app_login .wrapper .head{
-	background-image: url(../images/general/bg-head-login.png);
-	background-repeat: repeat-x;
-	background-position: left top;
+	background-color: #094b69;
 	height: 82px;
+}
+
+#app_login .wrapper .head img {
+	margin: -27px 0px 0px 10px;
+	width: 330px;
 }
 
 #app_login .wrapper .head .logo{

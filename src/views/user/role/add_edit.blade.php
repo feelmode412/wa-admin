@@ -13,7 +13,7 @@
 
 			<ul id="checkboxtree">
 				<?php foreach (Config::get('admin::menu') as $level1): ?>
-					
+
 					<li><?php echo Form::checkbox('routes[]', $level1['route'], in_array($level1['route'], $currentRoutes)) ?>
 					
 					<label><?php echo $level1['title'] ?>
@@ -25,7 +25,10 @@
 							<li><?php echo Form::checkbox('routes[]', $level2['route'], in_array($level2['route'], $currentRoutes)) ?>
 							<label><?php echo $level2['title'] ?>
 							
-							<?php if ( ! isset($level2['subs'])): continue; endif ?>
+							<?php if ( ! isset($level2['subs'])): ?>
+								</ul>
+								<?php continue ?>
+							<?php endif ?>
 							
 							<?php foreach ($level2['subs'] as $level3): ?>
 								<ul>
@@ -36,7 +39,7 @@
 
 						</ul>
 					<?php endforeach ?>
-				
+
 				<?php endforeach ?>
 			</ul>
 			

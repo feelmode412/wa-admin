@@ -327,12 +327,9 @@ body {
 }
 
 #app_login .copyright{
-	background-image: url(../images/general/shadow-applogin.png);
-	background-repeat: no-repeat;
-	background-position: center top;
 	padding-top: 35px;
 	text-align: center;
-	margin-top: -13px;
+	margin-top: -25px;
 	z-index: 4;
 }
 

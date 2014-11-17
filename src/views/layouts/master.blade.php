@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-us">
 	<head>
-		<title>{{ isset($pageTitle) ? $pageTitle.' | ' : null }}{{ $websiteName }} Admin Panel</title>
+		<title>{{ isset($pageTitle) ? $pageTitle.' | ' : null }}{{ Config::get('app.name') }} | WEBARQ Admin</title>
 		<link rel="icon" type="images/x-icon" href="{{ asset('packages/webarq/admin') }}/favicon.ico"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('packages/webarq/admin') }}/css/main.css"/>
@@ -27,14 +27,14 @@
 			@include('admin::login')
 		@else
 		<div id="app_header">
-			<span id="icon">{{ $websiteName }} Admin Panel</span>   
+			<span id="icon">WEBARQ Admin for {{ Config::get('app.name') }}</span>   
 			<div id="welcome-message">Welcome, {{ Auth::user()->username }}
 				<span id="logout"><a href="{{ admin_url('auth/logout') }}">Logout</a></span>
 			</div>
 		</div>
 		<div id="app_shorcut">
 			<div>
-				<img src="{{ asset('admin/images/logo.png') }}" alt="{{ $websiteName }}" class="logo"/>
+				<img src="{{ asset('packages/webarq/admin/images/logo-client.png') }}" alt="{{ $websiteName }}" class="logo"/>
 			</div>
 		</div>
 		
@@ -61,9 +61,9 @@
 		
 		<div id="app_footer">
 			<ul>
-				<li>&copy; 2014 {{ $websiteName }}. All rights reserved.</li>
+				<li>&copy; 2014 PT Web Architect Technology. All rights reserved.</li>
 			</ul>
-			<div class="logo">Design and development by <a href="http://www.webarq.com" class="">WEBARQ</a></div>
+			<div class="logo">&nbsp;</div>
 		</div>
 		@endif
 		

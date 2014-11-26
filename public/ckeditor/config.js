@@ -43,7 +43,10 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserImageUploadUrl = admin_asset('kcfinder/upload.php?type=images');
 	config.filebrowserFlashUploadUrl = admin_asset('kcfinder/upload.php?type=flash');
 
+	// Custom
 	config.autoParagraph = false;
 	config.allowedContent = true;
+	config.entities = false;
+	config.htmlEncodeOutput = false;
 
 };

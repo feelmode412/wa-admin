@@ -10,13 +10,16 @@
 |
 */
 
-function admin_url($path = null)
+if ( ! function_exists('admin_url'))
 {
-	$url = $_SERVER['SCRIPT_NAME'].'/'.Admin::getUrlPrefix();
-	if ($path)
+	function admin_url($path = null)
 	{
-		$url .= '/'.$path;
-	}
-	
-	return $url;
+		$url = $_SERVER['SCRIPT_NAME'].'/'.Admin::getUrlPrefix();
+		if ($path)
+		{
+			$url .= '/'.$path;
+		}
+		
+		return $url;
+	}	
 }

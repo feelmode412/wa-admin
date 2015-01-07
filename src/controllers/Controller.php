@@ -497,10 +497,12 @@ class Controller extends \Controller {
 					'activeMainMenu' => $this->activeMainMenu,
 					'menuRoutes' => (isset($menuRoutes)) ? $menuRoutes : array(),
 				)),
-				'message'     => \Session::get('message'),
+				'message'     => \Session::get('siteMessage') ?: \Session::get('message'),
 				'pageTitle'   => $this->pageTitle,
 				'websiteName' => \Config::get('app.name'),
 			));
+
+			\Session::forget('siteMessage');
 		}
 	}
 

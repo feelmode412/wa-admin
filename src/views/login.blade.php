@@ -7,6 +7,13 @@
 			@if ($message)
 				<p class="msg login {{ $message['type'] }}">{{ $message['content'] }}</p>
 			@endif
+
+			@if (Session::get('siteMessage'))
+				<?php $siteMessage = Session::get('siteMessage') ?>
+				<p class="msg login {{ $siteMessage['type'] }}">{{ $siteMessage['content'] }}</p>
+				<?php Session::forget('siteMessage') ?>
+			@endif
+
 			<table border="0" cellpadding="0" class="login" summary="blah blah">
 				<tr>
 					<td>

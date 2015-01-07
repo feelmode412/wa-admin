@@ -27,6 +27,7 @@ class Controller extends \Controller {
 	
 	public function __construct()
 	{
+		$this->beforeFilter('admin_auth');
 		$this->setting = new \Webarq\Site\Setting;
 	}
 
